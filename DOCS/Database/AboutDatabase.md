@@ -136,8 +136,6 @@ This table is the foundation for detection, alerting, and reporting.
   Requested URL path.
 - **`URL`**  
   Full URL (stored only for threat-related traffic).
-- **`Status`**  
-  HTTP status code if available.
 - **`DeviceId`**  
   Foreign key to `Devices`.
 
@@ -174,7 +172,7 @@ A single threat event can have multiple contributing reasons.
   "levenshtein": 1,
   "homoglyph": true
 }
-
+```
 
 ## 6) `Rules`
 
@@ -275,6 +273,7 @@ Rule:
 Result:
   If a domain visually imitates paypal.com,
   the request is blocked and logged.
+```
 
 ## 7) `RuleHits` (Audit)
 
