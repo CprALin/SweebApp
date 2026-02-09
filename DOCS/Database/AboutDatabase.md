@@ -27,7 +27,7 @@ The schema is organized into the following logical layers:
 
 # Tables
 
-## 1) `User`
+## 1) `User_Info`
 
 ### Purpose
 Stores user accounts and authentication-related metadata.
