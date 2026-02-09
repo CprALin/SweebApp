@@ -19,7 +19,7 @@ CREATE TABLE UserSettings (
 	AllowNotifications BIT NOT NULL DEFAULT 1,
 	Theme NVARCHAR(50) NOT NULL DEFAULT 'Light',
 	RunAtStartup BIT NOT NULL DEFAULT 0,
-	constraint FK_UserSettings_UserId FOREIGN KEY (UserId) REFERENCES User(IdUser)
+	constraint FK_UserSettings_UserId FOREIGN KEY (UserId) REFERENCES User_Info(IdUser)
 );
 
 CREATE TABLE Devices (
@@ -28,7 +28,7 @@ CREATE TABLE Devices (
 	OS NVARCHAR(255) NOT NULL,
 	CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
 	UserId INT NOT NULL,
-	CONSTRAINT FK_UserId FOREIGN KEY (UserId) REFERENCES User(IdUser)
+	CONSTRAINT FK_UserId FOREIGN KEY (UserId) REFERENCES User_Info(IdUser)
 );
 
 CREATE TABLE Rules (
@@ -41,7 +41,7 @@ CREATE TABLE Rules (
 	MatchType NVARCHAR(50) NOT NULL,
 	Pattern NVARCHAR(255) NOT NULL,
 	CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
-	CONSTRAINT FK_Rules_UserId FOREIGN KEY (UserId) REFERENCES User(IdUser)
+	CONSTRAINT FK_Rules_UserId FOREIGN KEY (UserId) REFERENCES User_Info(IdUser)
 );
 
 CREATE TABLE RuleHits (
@@ -86,7 +86,7 @@ CREATE TABLE Alerts (
 	Severity NVARCHAR(50) NOT NULL,
 	IsRead BIT NOT NULL DEFAULT 0,
 	CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
-	CONSTRAINT FK_Alerts_UserId FOREIGN KEY (UserId) REFERENCES User(IdUser),
+	CONSTRAINT FK_Alerts_UserId FOREIGN KEY (UserId) REFERENCES User_Info(IdUser),
 	CONSTRAINT FK_Alerts_DeviceId FOREIGN KEY (DeviceId) REFERENCES Devices(IdDevice),
 	CONSTRAINT FK_Alerts_ThreatEventId FOREIGN KEY (ThreatEventId) REFERENCES ThreatEvents(IdThreatEvent)
 );
