@@ -1,0 +1,11 @@
+services:
+  sqlserver:
+    image: ${IMAGE_NAME}
+    container_name : ${DB_NAME}
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${PORT}
+
+# Initialize the container with the database : docker compose up -d
