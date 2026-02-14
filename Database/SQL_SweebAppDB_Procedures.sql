@@ -1,6 +1,7 @@
 USE SweebDataBase;
 GO;
 
+DROP PROCEDURE registerUser;
 CREATE PROCEDURE registerUser
     @Username NVARCHAR(255),
 	@Email NVARCHAR(255),
@@ -13,8 +14,8 @@ BEGIN
 	BEGIN TRY
 	    BEGIN TRANSACTION;
 		
-		INSERT INTO dbo.User_Info (Username , Email , PasswordHash , LastLogin ) 
-		VALUES (@Username , @Email , @PasswordHash , GETDATE());
+		INSERT INTO dbo.User_Info (Username , Email , PasswordHash ) 
+		VALUES (@Username , @Email , @PasswordHash);
 	
 		DECLARE @UserId INT = CAST(SCOPE_IDENTITY() AS INT);
 		
@@ -31,26 +32,16 @@ END
 GO;
 
 
+DROP PROCEDURE loginUser;
 CREATE PROCEDURE loginUser
-    @Username NVARCHAR(255),
-	@PasswordHash NVARCHAR(255),
-	@Success INT OUTPUT,
-	@UserId INT OUTPUT
+    @Username NVARCHAR(255)
 AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	SELECT TOP 1 @UserId = IdUser
+	SELECT TOP 1 IdUser , PasswordHash 
 	FROM dbo.User_Info
-	WHERE (Username = @Username OR Email = @Username) 
-	  AND PasswordHash = @PasswordHash;
-
-
-	IF @UserId IS NOT NULL
-	   SET @Success = 1;
-	ELSE 
-	   SET @Success = 0;
-	
+	WHERE Username = @Username OR Email = @Username;
 END
 GO;
 
@@ -153,4 +144,51 @@ BEGIN
 END
 GO;
 
+
+DROP PROCEDURE getUserById;
+CREATE PROCEDURE getUserById
+	@UserId INT
+AS 
+BEGIN 
+	SET NOCOUNT ON;
+    
+	IF NOT EXISTS (
+	 SELECT 1 FROM User_Info WHERE IdUser = @UserId
+    )
+	BEGIN 
+		RAISERROR('This user can`t be found !' , 16, 1);
+		RETURN;
+	END
+
+	SELECT * FROM User_Info WHERE IdUser = @UserId;
+END
+GO;
+
+
+CREATE PROCEDURE updateUserEmailById
+	@UserId INT,
+	@NewEmail NVARCHAR(255),
+	@Success INT OUTPUT 
+AS
+BEGIN 
+	SET NOCOUNT ON;
+
+	IF EXISTS (SELECT 1 FROM dbo.User_Info WHERE Email = @NewEmail)
+	BEGIN 
+		SET @Success = 0;
+		RETURN;
+	END
+
+	BEGIN TRY 
+		UPDATE dbo.User_Info 
+		SET Email = @NewEmail 
+		WHERE IdUser = @UserId;
+
+		SET @Success = 1;
+	END TRY
+	BEGIN CATCH
+		SET @Success = 0;
+	END CATCH 
+END
+GO;
 
