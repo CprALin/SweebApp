@@ -47,6 +47,8 @@ Stores user accounts and authentication-related metadata.
   Timestamp when the user account was created.
 - **`LastLogin`**  
   Timestamp of the last successful login.
+- **`UserRole`**
+  Defines user permissions for authorization
 
 ### Relationships
 - One user can own multiple devices.

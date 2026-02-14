@@ -90,3 +90,6 @@ CREATE TABLE Alerts (
 	CONSTRAINT FK_Alerts_DeviceId FOREIGN KEY (DeviceId) REFERENCES Devices(IdDevice),
 	CONSTRAINT FK_Alerts_ThreatEventId FOREIGN KEY (ThreatEventId) REFERENCES ThreatEvents(IdThreatEvent)
 );
+
+ALTER TABLE User_Info
+ADD UserRole NVARCHAR(50) NOT NULL DEFAULT 'User';
