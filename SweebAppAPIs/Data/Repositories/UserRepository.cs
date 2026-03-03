@@ -15,39 +15,52 @@ namespace SweebAppAPIs.Data.Repositories
 
         public async Task<Models.UserInfo?> GetUserByIdAsync(int id)
         {
-            try
-            {
-                return await _context.Users.FromSqlRaw($"EXEC getUserById {id}").AsNoTracking().FirstOrDefaultAsync();
-            }
-            catch(Exception)
-            {
-               throw;
-            }
-
+            return await _context.Users.FromSqlInterpolated($"EXEC getUserById {id}").AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<bool> RegisterAsync(string username , string email , string password)
+        public async Task<bool> RegisterAsync(string username, string email, string password)
         {
-            try
+         
+            int successParam = new SqlParameter
             {
-                var successParam = new SqlParameter
-                {
-                    ParameterName = "@Success",
-                    SqlDbType = System.Data.SqlDbType.Int,
-                    Direction = System.Data.ParameterDirection.Output
-                };
+               ParameterName = "@Success",
+               SqlDbType = System.Data.SqlDbType.Int,
+               Direction = System.Data.ParameterDirection.Output
+            };
 
-                await _context.Database.ExecuteSqlRawAsync(
-                    "EXEC registerUser @Username , @Email , @PasswordHash , @Success OUTPUT",
-                    new SqlParameter("@Username", username),
-                    new SqlParameter("@Email", email),
-                    new SqlParameter("@PasswordHash", password),
-                    successParam
-                );
-            }
-            catch (Exception)
+            await _context.Database.ExecuteSqlRawAsync(
+               "EXEC registerUser @Username , @Email , @PasswordHash , @Success OUTPUT",
+                new SqlParameter("@Username", username),
+                new SqlParameter("@Email", email),
+                new SqlParameter("@PasswordHash", password),
+                successParam
+             );
+
+             return successParam.Value == 1;
+        }
+
+        public async Task<(int UserId , string PasswordHash)> LoginAsync(string username)
+        {
+           return await _context.LoginUserResults.FromSqlInterpolated($"EXEC loginUser {username}").AsNoTrack().FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> UpdateUserEmail(int userId , string newEmail) 
+        {
+            int successParam = new SqlParameter
             {
-                throw;
-            }
+                ParameterName = "@Success",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC updateUserEmailById @UserId , @NewEmail , @Success OUTPUT",
+                new SqlParameter("@UserId" , userId),
+                new SqlParameter("@NewEmail" , newEmail),
+                successParam
+            );
+
+            return successParam.Value == 1;
+        }
     }
 }
