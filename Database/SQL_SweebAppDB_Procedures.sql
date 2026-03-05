@@ -385,6 +385,19 @@ BEGIN
 END
 GO;
 
+CREATE PROCEDURE updateAsReadAlert 
+	@IdAlert INT,
+	@UserId INT
+AS 
+BEGIN 
+	SET NOCOUNT ON;
+
+	UPDATE dbo.Alerts
+	SET IsRead = 1 
+	WHERE IdAlert = @IdAlert AND UserId = @UserId
+END 
+GO;
+
 
 
 /*
@@ -424,7 +437,7 @@ GO;
 
 /*
    Alerts details used for : User alerts history , 
-   Device alerts history , Last 20 alerts for user DASHBOARD
+   Device alerts history , Unread alerts for user DASHBOARD
 */
 CREATE OR ALTER VIEW dbo.vw_AlertsFeed
 AS
@@ -447,6 +460,45 @@ JOIN dbo.Devices d ON d.IdDevice = a.DeviceId
 JOIN dbo.ThreatEvents te ON te.IdThreatEvent = a.ThreatEventId;
 GO;
 
+-- Create procedure for Alerts feed for User
+CREATE PROCEDURE dbo.getAlertsFeedByUser 
+	@UserId INT 
+AS
+BEGIN 
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_AlertsFeed
+	WHERE UserId = @UserId
+	ORDER BY CreatedAt DESC;
+END
+GO;
+
+-- Create procedure for Alerts feed for Devices
+CREATE PROCEDURE dbo.getAlertsFeedByDevice
+	@DeviceId INT,
+	@UserId INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_AlertsFeed
+	WHERE UserId = @UserId AND DeviceId = @DeviceId
+	ORDER BY CreatedAt DESC;
+END
+GO;
+
+-- Create procedure for unread Alerts 
+CREATE PROCEDURE dbo.getUnreadAlertsCount
+	@UserId INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT COUNT(1) AS UnreadCount
+	FROM dbo.vw_AlertsFeed
+	WHERE UserId = @UserId AND IsRead = 0;
+END
+GO;
 
 /*
    Threat events for : User History , Threat Events for Device , Last 20 threats for user DASHBOARD
@@ -456,7 +508,7 @@ AS
 SELECT 
 	te.IdThreatEvent,
 	d.UserId,
-	te.DeviceID as DeviceId,
+	te.DeviceID,
 	d.Name as DeviceName,
 	te.URL,
 	te.Protocol,
@@ -472,6 +524,45 @@ FROM dbo.ThreatEvents te
 JOIN dbo.Devices d ON d.IdDevice = te.DeviceID;
 GO;
 
+-- Create procedure for user history 
+CREATE PROCEDURE dbo.getThreatEventsByUser
+	@UserId INT
+AS 
+BEGIN 
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_ThreatEventsWithDevice
+	WHERE UserId = @UserId
+	ORDER BY Timestamp DESC;
+END
+GO;
+
+-- Create procedure for device history 
+CREATE PROCEDURE dbo.getThreatEventsByDevice
+	@UserId INT,
+	@DeviceId INT 
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_ThreatEventsWithDevice
+	WHERE UserId = @UserId AND DeviceID = @DeviceId
+	ORDER BY Timestamp DESC;
+END
+GO;
+
+-- Last 20 threat events for user DASHBOARD
+CREATE PROCEDURE dbo.getRecentThreatEvents
+	@UserId INT
+AS 
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT TOP 20 * FROM dbo.vw_ThreatEventsWithDevice
+	WHERE UserId = @UserId
+	ORDER BY Timestamp DESC;
+END
+GO;
 /*
    Rules activity for : User , Just one Rule , Device
 */
@@ -497,5 +588,44 @@ JOIN dbo.ThreatEvents te ON te.IdThreatEvent = rh.ThreatEventId
 JOIN dbo.Devices d ON d.IdDevice = te.DeviceID;
 GO;
 
+-- Create procedure for User rules activity
+CREATE PROCEDURE dbo.getRuleHitsByUser
+	@UserId INT 
+AS
+BEGIN
+	SET NOCOUNT ON;
 
+	SELECT * FROM dbo.vw_RuleHitsActivity
+	WHERE UserId = @UserId
+	ORDER BY RuleHitTimestamp DESC;
+END
+GO;
+
+-- Create procedure for Device rules activity 
+CREATE PROCEDURE dbo.getRuleHitsByDevice
+	@UserId INT,
+	@DeviceId INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_RuleHitsActivity
+	WHERE UserId = @UserId AND DeviceId = @DeviceId
+	ORDER BY RuleHitTimestamp DESC;
+END
+GO;
+
+-- Procedure for one rule activity
+CREATE PROCEDURE dbo.getRuleHitsByRule
+	@UserId INT,
+	@RuleId INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT * FROM dbo.vw_RuleHitsActivity
+	WHERE UserId = @UserId AND RuleId = @RuleId
+	ORDER BY RuleHitTimestamp DESC;
+END
+GO;
 
