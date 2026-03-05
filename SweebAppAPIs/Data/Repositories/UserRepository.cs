@@ -21,7 +21,7 @@ namespace SweebAppAPIs.Data.Repositories
         public async Task<bool> RegisterAsync(string username, string email, string password)
         {
          
-            int successParam = new SqlParameter
+            var successParam = new SqlParameter
             {
                ParameterName = "@Success",
                SqlDbType = System.Data.SqlDbType.Int,
@@ -36,17 +36,17 @@ namespace SweebAppAPIs.Data.Repositories
                 successParam
              );
 
-             return successParam.Value == 1;
+             return (int)successParam.Value == 1;
         }
 
-        public async Task<(int UserId , string PasswordHash)> LoginAsync(string username)
+        public async Task<Models.LoginUserResults?> LoginAsync(string username)
         {
-           return await _context.LoginUserResults.FromSqlInterpolated($"EXEC loginUser {username}").AsNoTrack().FirstOrDefaultAsync();
+           return await _context.LoginUserResults.FromSqlInterpolated($"EXEC loginUser {username}").AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateUserEmail(int userId , string newEmail) 
         {
-            int successParam = new SqlParameter
+            var successParam = new SqlParameter
             {
                 ParameterName = "@Success",
                 SqlDbType = System.Data.SqlDbType.Int,
@@ -60,7 +60,49 @@ namespace SweebAppAPIs.Data.Repositories
                 successParam
             );
 
-            return successParam.Value == 1;
+            return (int)successParam.Value == 1;
+        }
+
+        public async Task<Models.UserSettings?> GetUserSettingsAsync(int userId)
+        {
+            return await _context.UserSettings.FromSqlInterpolated($"EXEC getSettings {userId}").AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAllwaysOnTopAsync(int idSettings , int allwaysOnTop)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC updateAllwaysOnTop @IdSettings , @AllwaysOnTop",
+                new SqlParameter("@IdSettings" , idSettings),
+                new SqlParameter("@AllwaysOnTop" , allwaysOnTop)
+            )
+        }
+
+        public async Task UpdateAllowNotificationsAsync(int idSettings, int allowNotifications)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC updateAllowNotifications @IdSettings , @AllowNotifications",
+                new SqlParameter("@IdSettings", idSettings),
+                new SqlParameter("@AllowNotifications", allowNotifications)
+
+            );
+        }
+
+        public async Task UpdateThemeAsync(int idSettings, string theme)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                 "EXEC updateTheme @IdSettings , @Theme",
+                 new SqlParameter("@IdSettings", idSettings),
+                 new SqlParameter("@Theme", theme)
+            );
+        }
+
+        public async Task UpdateRunAtStartup(int idSettings, int runAtStartup)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC updateRunAtStartup @IdSettings , @RunAtStartup",
+                new SqlParameter("@IdSettings", idSettings),
+                new SqlParameter("@RunAtStartup" , runAtStartup)
+            );
         }
     }
 }

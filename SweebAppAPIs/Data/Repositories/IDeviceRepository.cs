@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace SweebAppAPIs.Data.Repositories
+﻿namespace SweebAppAPIs.Data.Repositories
 {
     public interface IDeviceRepository
     {
-
+       Task 
     }
 }
 

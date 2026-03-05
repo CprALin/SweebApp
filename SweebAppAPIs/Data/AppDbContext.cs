@@ -8,6 +8,7 @@ namespace SweebAppAPIs.Data
 
         public DbSet<Models.UserInfo> Users { get; set; }
         public DbSet<Models.LoginUserResults> LoginUserResults { get; set; }
+        public DbSet<Models.UserSettings> UserSettings { get; set; }
 
     }
 }
