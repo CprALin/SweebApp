@@ -5,13 +5,9 @@ using Microsoft.Data.SqlClient;
 
 namespace SweebAppAPIs.Data.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(AppDbContext context) : IUserRepository
     {
-        private readonly AppDbContext _context;
-        public UserRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         public async Task<Models.UserInfo?> GetUserByIdAsync(int id)
         {
@@ -72,9 +68,9 @@ namespace SweebAppAPIs.Data.Repositories
         {
             await _context.Database.ExecuteSqlRawAsync(
                 "EXEC updateAllwaysOnTop @IdSettings , @AllwaysOnTop",
-                new SqlParameter("@IdSettings" , idSettings),
-                new SqlParameter("@AllwaysOnTop" , allwaysOnTop)
-            )
+                new SqlParameter("@IdSettings", idSettings),
+                new SqlParameter("@AllwaysOnTop", allwaysOnTop)
+            );
         }
 
         public async Task UpdateAllowNotificationsAsync(int idSettings, int allowNotifications)

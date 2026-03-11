@@ -2,13 +2,11 @@
 
 namespace SweebAppAPIs.Data
 {
-    public class AppDbContext : DbContext 
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
-
         public DbSet<Models.UserInfo> Users { get; set; }
         public DbSet<Models.LoginUserResults> LoginUserResults { get; set; }
         public DbSet<Models.UserSettings> UserSettings { get; set; }
-
+        public DbSet<Models.Devices> Devices { get; set; }
     }
 }

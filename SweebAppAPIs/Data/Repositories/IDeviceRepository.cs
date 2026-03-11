@@ -2,7 +2,9 @@
 {
     public interface IDeviceRepository
     {
-       Task 
+        Task AddDevice(string name, string os, int userId);
+        Task<Models.Devices?> GetDevicesForUser(int userId);
+        Task DeleteDeviceById(int deviceId);
     }
 }
 
