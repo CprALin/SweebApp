@@ -33,5 +33,19 @@ namespace SweebAppAPIs.Data.Repositories
                 new SqlParameter("@IdRule" , ruleId)
             );
         }
+
+        public async Task AddRuleHit(int ruleId, int threatEventId)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC addRuleHit @RuleId , @ThreatEventId",
+                new SqlParameter("@RuleId" , ruleId),
+                new SqlParameter("@ThreatEventId" , threatEventId)
+            );
+        }
+
+        public async Task<Models.RuleHits?> GetRulesHit(int threatEventId)
+        {
+            return await _context.RuleHits.FromSqlInterpolated($"EXEC getRulesHit {threatEventId}").AsNoTracking().FirstOrDefaultAsync();
+        }
     }
 }

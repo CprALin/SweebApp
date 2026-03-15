@@ -9,5 +9,9 @@ namespace SweebAppAPIs.Data
         public DbSet<Models.UserSettings> UserSettings { get; set; }
         public DbSet<Models.Devices> Devices { get; set; }
         public DbSet<Models.Rules> Rules { get; set; }
+        public DbSet<Models.ThreatEvents> ThreatEvents { get; set; }
+        public DbSet<Models.DetectionReasons> DetectionReasons { get; set; }
+        public DbSet<Models.RuleHits> RuleHits { get; set; }
+        public DbSet<Models.Alerts> Alerts { get; set; }
     }
 }
