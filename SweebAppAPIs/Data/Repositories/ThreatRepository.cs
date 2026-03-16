@@ -24,9 +24,9 @@ namespace SweebAppAPIs.Data.Repositories
             );
         }
 
-        public async Task<Models.ThreatEvents?> GetThreatEventsForDevice(int deviceId)
+        public async Task<List<Models.ThreatEvents>> GetThreatEventsForDevice(int deviceId)
         {
-            return await _context.ThreatEvents.FromSqlInterpolated($"EXEC getThreatEventsForDevice {deviceId}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.ThreatEvents.FromSqlInterpolated($"EXEC getThreatEventsForDevice {deviceId}").ToListAsync();
         }
 
         public async Task AddDetectionReason(string reasonCode, int weight, string details, int threatEventId)
@@ -43,6 +43,21 @@ namespace SweebAppAPIs.Data.Repositories
         public async Task<Models.DetectionReasons?> GetDetectionReason(int threatEventId)
         {
             return await _context.DetectionReasons.FromSqlInterpolated($"EXEC getDetectionReason {threatEventId}").AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Models.ThreatEventsWithDevice>> GetThreatEventsByUser(int userId)
+        {
+            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getThreatEventsByUser {userId}").ToListAsync();
+        }
+
+        public async Task<List<Models.ThreatEventsWithDevice>> GetThreatEventsByDevice(int userId, int deviceId)
+        {
+            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getThreatEventsByDevice {userId} , {deviceId}").ToListAsync();
+        }
+
+        public async Task<List<Models.ThreatEventsWithDevice>> GetRecentThreatEvents(int userId)
+        {
+            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getRecentThreatEvents {userId}").ToListAsync();
         }
     }
 }

@@ -22,9 +22,9 @@ namespace SweebAppAPIs.Data.Repositories
         {
             return await _context.Alerts.FromSqlInterpolated($"EXEC getHotAlert {userId} , {deviceId} , {threatEventId}").AsNoTracking().FirstOrDefaultAsync();
         }
-        public async Task<Models.Alerts?> GetAllAlertsForDevice(int userId, int deviceId)
+        public async Task<List<Models.Alerts>> GetAllAlertsForDevice(int userId, int deviceId)
         {
-            return await _context.Alerts.FromSqlInterpolated($"EXEC getAllAlertsForDevice {userId} , {deviceId}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.Alerts.FromSqlInterpolated($"EXEC getAllAlertsForDevice {userId} , {deviceId}").ToListAsync();
         }
         public async Task UpdateAsReadAlert(int alertId, int userId)
         {
@@ -33,6 +33,21 @@ namespace SweebAppAPIs.Data.Repositories
                 new SqlParameter("@IdAlerts", alertId),
                 new SqlParameter("@UserId", userId)
             );
+        }
+
+        public async Task<List<Models.AlertsFeed>> GetAlertsFeedByUser(int userId)
+        {
+            return await _context.AlertFeeds.FromSqlInterpolated($"EXEC getAlertsFeedByUser {userId}").ToListAsync();
+        }
+
+        public async Task<List<Models.AlertsFeed>> GetAlertsFeedByDevice(int deviceId, int userId)
+        {
+            return await _context.AlertFeeds.FromSqlInterpolated($"EXEC getAlertsFeedByDevice {deviceId} , {userId}").ToListAsync();
+        }
+
+        public async Task<List<Models.AlertsFeed>> GetUnreadAlertsCount(int userId)
+        {
+            return await _context.AlertFeeds.FromSqlInterpolated($"EXEC getUnreadAlertsCount {userId}").ToListAsync();
         }
     }
 }

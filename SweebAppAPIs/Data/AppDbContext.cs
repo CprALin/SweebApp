@@ -13,5 +13,8 @@ namespace SweebAppAPIs.Data
         public DbSet<Models.DetectionReasons> DetectionReasons { get; set; }
         public DbSet<Models.RuleHits> RuleHits { get; set; }
         public DbSet<Models.Alerts> Alerts { get; set; }
+        public DbSet<Models.AlertsFeed> AlertFeeds { get; set; }
+        public DbSet<Models.ThreatEventsWithDevice> ThreatEventsWithDevice { get; set; }
+        public DbSet<Models.RuleHitsActivity> RuleHitsActivity { get; set; }
     }
 }

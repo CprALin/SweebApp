@@ -21,9 +21,9 @@ namespace SweebAppAPIs.Data.Repositories
             );
         }
 
-        public async Task<Models.Rules?> GetUserRulesByUserId(int userId)
+        public async Task<List<Models.Rules>> GetUserRulesByUserId(int userId)
         {
-            return await _context.Rules.FromSqlInterpolated($"EXEC getUserRole {userId}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.Rules.FromSqlInterpolated($"EXEC getUserRole {userId}").ToListAsync();
         }
 
         public async Task DeleteRuleById(int ruleId)
@@ -43,9 +43,24 @@ namespace SweebAppAPIs.Data.Repositories
             );
         }
 
-        public async Task<Models.RuleHits?> GetRulesHit(int threatEventId)
+        public async Task<List<Models.RuleHits>> GetRulesHit(int threatEventId)
         {
-            return await _context.RuleHits.FromSqlInterpolated($"EXEC getRulesHit {threatEventId}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.RuleHits.FromSqlInterpolated($"EXEC getRulesHit {threatEventId}").ToListAsync();
+        }
+
+        public async Task<List<Models.RuleHitsActivity>> GetRuleHitsByUser(int userId)
+        {
+            return await _context.RuleHitsActivity.FromSqlInterpolated($"EXEC getRuleHitsByUser {userId}").ToListAsync();
+        }
+
+        public async Task<List<Models.RuleHitsActivity>> GetRuleHitsByDevice(int userId, int deviceId)
+        {
+            return await _context.RuleHitsActivity.FromSqlInterpolated($"EXEC getRuleHitsByDevice {userId} , {deviceId}").ToListAsync();
+        }
+
+        public async Task<List<Models.RuleHitsActivity>> GetRuleHitsByRule(int userId, int ruleId)
+        {
+            return await _context.RuleHitsActivity.FromSqlInterpolated($"EXEC getRuleHitsByRule {userId} , {ruleId}").ToListAsync(); 
         }
     }
 }
