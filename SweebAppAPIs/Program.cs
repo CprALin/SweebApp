@@ -3,7 +3,7 @@ using SweebAppAPIs.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddPresentation()
+    .AddPresentation(builder.Configuration)
     .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();

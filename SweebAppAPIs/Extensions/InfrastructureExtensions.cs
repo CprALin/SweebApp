@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SweebAppAPIs.Data;
 
 namespace SweebAppAPIs.Extensions
 {
@@ -6,8 +7,8 @@ namespace SweebAppAPIs.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
         {
-            Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(config.GetConnectionString("SqlConnection")));
 
             return services;
         }

@@ -17,5 +17,44 @@ namespace SweebAppAPIs.Services
         {
             return await _userRepository.GetUserByIdAsync(id);
         }
+
+        public async Task<bool> RegisterAsync(string username, string email, string password)
+        {
+            return await _userRepository.RegisterAsync(username, email, password);
+        }
+
+        public async Task<LoginUserResults?> LoginAsync(string username)
+        {
+            return await _userRepository.LoginAsync(username);
+        }
+
+        public async Task<bool> UpdateUserEmail(int userId, string newEmail)
+        {
+            return await _userRepository.UpdateUserEmail(userId, newEmail);
+        }
+
+        public async Task<UserSettings?> GetUserSettingsAsync(int userId)
+        {
+            return await _userRepository.GetUserSettingsAsync(userId);
+        }
+
+        public async Task UpdateAllwaysOnTopAsync(int idSettings, int allwaysOnTop)
+        {
+            await _userRepository.UpdateAllwaysOnTopAsync(idSettings, allwaysOnTop); ;
+        }
+
+        public async Task UpdateAllowNotificationsAsync(int idSettings, int allowNotifications)
+        {
+            await _userRepository.UpdateAllowNotificationsAsync(idSettings, allowNotifications); 
+        }
+
+        public async Task UpdateThemeAsync(int idSettings, string theme)
+        {
+            await _userRepository.UpdateThemeAsync(idSettings, theme);
+        }
+        public async Task UpdateRunAtStartup(int idSettings, int runAtStartup)
+        {
+            await _userRepository.UpdateRunAtStartup(idSettings, runAtStartup); 
+        }
     }
 }
