@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using System.Text;
+
 
 namespace SweebAppAPIs.Extensions
 {
@@ -24,20 +25,8 @@ namespace SweebAppAPIs.Extensions
                     Description = "Enter JWT token like: Bearer {your token}"
                 });
 
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
+                options.AddSecurityRequirement(document => new() { [new OpenApiSecuritySchemeReference("Bearer", document)] = [] });
+               
             });
 
             services.AddCors(options =>
@@ -52,20 +41,16 @@ namespace SweebAppAPIs.Extensions
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", jwtOptions =>
             {
-                var metadataAddress = config["Api:MetadataAddress"];
-
-                if (string.IsNullOrEmpty(metadataAddress))
-                    throw new Exception("MetadataAddress missing in config");
-                jwtOptions.MetadataAddress = metadataAddress;
-                jwtOptions.Authority = config["Api:Authority"];
-                jwtOptions.Audience = config["Api:Audience"];
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
-                    ValidAudiences = config.GetSection("Api:ValidAudiences").Get<string[]>(),
-                    ValidIssuers = config.GetSection("Api:ValidIssuers").Get<string[]>()
+                    ValidAudience = config["Jwt:Audience"],
+                    ValidIssuer = config["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                     Encoding.UTF8.GetBytes(config["Jwt:Key"]!)    
+                    )
                 };
 
                 jwtOptions.MapInboundClaims = false;
