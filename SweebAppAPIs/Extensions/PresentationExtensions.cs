@@ -45,6 +45,7 @@ namespace SweebAppAPIs.Extensions
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidAudience = config["Jwt:Audience"],
                     ValidIssuer = config["Jwt:Issuer"],

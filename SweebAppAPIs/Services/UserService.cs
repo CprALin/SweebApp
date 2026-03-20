@@ -4,11 +4,11 @@ using SweebAppAPIs.Services.Interfaces;
 
 namespace SweebAppAPIs.Services
 {
-    public class UserServices : IUserServices
+    public class UserService : IUserServices
     {
         private readonly IUserRepository _userRepository;
 
-        public UserServices(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -16,16 +16,6 @@ namespace SweebAppAPIs.Services
         public async Task<UserInfo?> GetUserByIdAsync(int id)
         {
             return await _userRepository.GetUserByIdAsync(id);
-        }
-
-        public async Task<bool> RegisterAsync(string username, string email, string password)
-        {
-            return await _userRepository.RegisterAsync(username, email, password);
-        }
-
-        public async Task<LoginUserResults?> LoginAsync(string username)
-        {
-            return await _userRepository.LoginAsync(username);
         }
 
         public async Task<bool> UpdateUserEmail(int userId, string newEmail)
