@@ -37,6 +37,7 @@ END
 GO;
 
 
+
 DROP PROCEDURE loginUser;
 CREATE PROCEDURE loginUser
     @Username NVARCHAR(255)
@@ -44,12 +45,23 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	
-	SELECT TOP 1 IdUser , PasswordHash 
+	SELECT TOP 1 PasswordHash 
 	FROM dbo.User_Info
 	WHERE Username = @Username OR Email = @Username;
 END
 GO;
 
+CREATE PROCEDURE getUserAfterLogin
+    @Username NVARCHAR(255)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	SELECT *
+	FROM dbo.vw_UserData
+	WHERE Username = @Username OR Email = @Username;
+END;
+GO;
 
 DROP PROCEDURE getUserById;
 CREATE PROCEDURE getUserById
@@ -70,6 +82,10 @@ BEGIN
 END
 GO;
 
+DELETE FROM User_Info WHERE IdUser = 1003
+DELETE FROM UserSettings WHERE userId = 1003
+
+EXEC getUserAfterLogin "CprAlin"
 
 CREATE PROCEDURE updateUserEmailById
 	@UserId INT,
@@ -460,6 +476,7 @@ JOIN dbo.Devices d ON d.IdDevice = a.DeviceId
 JOIN dbo.ThreatEvents te ON te.IdThreatEvent = a.ThreatEventId;
 GO;
 
+exec registerUser
 -- Create procedure for Alerts feed for User
 CREATE PROCEDURE dbo.getAlertsFeedByUser 
 	@UserId INT 
@@ -501,8 +518,31 @@ END
 GO;
 
 /*
-   Threat events for : User History , Threat Events for Device , Last 20 threats for user DASHBOARD
+   Threat events for : User Data , User History , Threat Events for Device , Last 20 threats for user DASHBOARD
 */
+CREATE OR ALTER VIEW dbo.vw_UserData
+AS
+SELECT
+	ui.IdUser,
+	us.IdSettings,
+	ui.Username,
+	ui.Email,
+	ui.PasswordHash,
+	ui.CreatedAt,
+	ui.LastLogin,
+	ui.PhoneNumber,
+	ui.UserRole,
+	us.AllwaysOnTop,
+	us.AllowNotifications,
+	us.Theme,
+	us.RunAtStartup
+FROM dbo.User_Info ui
+JOIN dbo.UserSettings us ON ui.IdUser = us.UserId;
+GO;
+
+SELECT * FROM User_Info;
+SELECT * FROM UserSettings;
+
 CREATE OR ALTER VIEW dbo.vw_ThreatEventsWithDevice
 AS
 SELECT 
