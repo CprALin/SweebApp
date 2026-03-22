@@ -4,14 +4,10 @@ using SweebAppAPIs.Services.Interfaces;
 
 namespace SweebAppAPIs.Services
 {
-    public class UserService : IUserServices
+    public class UserService(IUserRepository userRepository) : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository = userRepository;
 
-        public UserService(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
 
         public async Task<UserInfo?> GetUserByIdAsync(int id)
         {

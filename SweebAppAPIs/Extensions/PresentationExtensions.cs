@@ -10,8 +10,6 @@ namespace SweebAppAPIs.Extensions
         public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration config)
         {
             services.AddControllers();
-            services.AddOpenApi();
-
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {

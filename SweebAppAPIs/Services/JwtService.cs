@@ -8,34 +8,26 @@ using System.Text;
 
 namespace SweebAppAPIs.Services
 {
-    public class JwtService : IJwtService
+    public class JwtService(IConfiguration configuration) : IJwtService
     {
-        private readonly IConfiguration _config;
+        private readonly IConfiguration _config = configuration;
 
-        public JwtService(IConfiguration config)
+        public string GenerateToken(UserData user)
         {
-            _config = config;
-        }
+            List<Claim> claims =
+                [
+                    new Claim(ClaimTypes.NameIdentifier, user.IdUser.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.UserRole)
+                ];
 
-        public string GenerateToken(UserInfo user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier , user.IdUser.ToString()),
-                new Claim(ClaimTypes.Name , user.Username),
-                new Claim(ClaimTypes.Email , user.Email),
-                new Claim(ClaimTypes.Role , user.UserRole)
-            };
+            SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha256);
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
-            );
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
+            JwtSecurityToken token = new(
                 issuer: _config["Jwt:Issuer"],
-                audience: _config["JwtAudience"],
+                audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: creds

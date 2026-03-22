@@ -100,5 +100,10 @@ namespace SweebAppAPIs.Data.Repositories
                 new SqlParameter("@RunAtStartup" , runAtStartup)
             );
         }
+
+        public async Task<Models.UserData?> GetUserData(string username)
+        {
+            return await _context.UserData.FromSqlInterpolated($"EXEC getUserAfterLogin {username}").AsNoTracking().FirstOrDefaultAsync();
+        }
     }
 }

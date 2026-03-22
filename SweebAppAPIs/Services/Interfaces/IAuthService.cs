@@ -4,7 +4,7 @@ namespace SweebAppAPIs.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> RegisterAsync(string username, string email, string password);
-        Task<LoginUserResults?> LoginAsync(string username); 
+        Task<Result> RegisterAsync(string username, string email, string password);
+        Task<Result> LoginAsync(string username , string password); 
     }
 }

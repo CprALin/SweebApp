@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-
+﻿
 namespace SweebAppAPIs.Extensions
 {
     public static class MiddlewareExtensions
@@ -11,7 +9,6 @@ namespace SweebAppAPIs.Extensions
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                app.MapOpenApi();
             }
 
             app.UseHttpsRedirection();

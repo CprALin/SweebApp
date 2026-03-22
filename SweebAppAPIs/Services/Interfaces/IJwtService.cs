@@ -4,6 +4,6 @@ namespace SweebAppAPIs.Services.Interfaces
 {
     public interface IJwtService
     {
-        string GenerateToken(UserInfo user);
+        string GenerateToken(UserData user);
     }
 }

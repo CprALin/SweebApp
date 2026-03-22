@@ -2,7 +2,7 @@
 
 namespace SweebAppAPIs.Services.Interfaces
 {
-    public interface IUserServices
+    public interface IUserService
     {
         Task<UserInfo?> GetUserByIdAsync(int id);
         Task<bool> UpdateUserEmail(int userId, string newEmail);

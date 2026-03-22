@@ -16,5 +16,6 @@ namespace SweebAppAPIs.Data
         public DbSet<Models.AlertsFeed> AlertFeeds { get; set; }
         public DbSet<Models.ThreatEventsWithDevice> ThreatEventsWithDevice { get; set; }
         public DbSet<Models.RuleHitsActivity> RuleHitsActivity { get; set; }
+        public DbSet<Models.UserData> UserData { get; set; }
     }
 }
