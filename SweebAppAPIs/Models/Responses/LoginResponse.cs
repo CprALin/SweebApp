@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SweebAppAPIs.Models
+﻿namespace SweebAppAPIs.Models.Responses
 {
-    public class UserData
+    public class LoginResponse
     {
-        [Key]
+        public required bool Success { get; set; }
         public int IdUser { get; set; }
         public int IdSettings { get; set; }
         public required string Username { get; set; }
@@ -18,5 +16,6 @@ namespace SweebAppAPIs.Models
         public bool AllowNotifications { get; set; }
         public required string Theme { get; set; }
         public bool RunAtStartup { get; set; }
+        public required string Token { get; set; }
     }
 }

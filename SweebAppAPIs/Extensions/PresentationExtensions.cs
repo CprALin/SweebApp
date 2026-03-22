@@ -30,7 +30,8 @@ namespace SweebAppAPIs.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("DefaultCors", p =>
-                    p.AllowAnyOrigin()
+                    p.WithOrigins("https://localhost:4238",
+                                  "http://localhost:4300")
                      .AllowAnyHeader()
                      .AllowAnyMethod()
                 );

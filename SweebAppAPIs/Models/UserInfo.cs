@@ -1,7 +1,10 @@
-﻿namespace SweebAppAPIs.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SweebAppAPIs.Models
 {
     public class UserInfo
     {
+        [Key]
         public int IdUser { get; set; }
         public required string Username { get; set; }
         public required string Email { get; set; }

@@ -1,7 +1,10 @@
-﻿namespace SweebAppAPIs.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SweebAppAPIs.Models
 {
     public class Devices
     {
+        [Key]
         public int IdDevice { get; set; }
         public string Name { get; set; }
         public string OS { get; set; }

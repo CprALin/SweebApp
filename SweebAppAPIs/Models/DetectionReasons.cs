@@ -1,7 +1,10 @@
-﻿namespace SweebAppAPIs.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SweebAppAPIs.Models
 {
     public class DetectionReasons
     {
+        [Key]
         public int IdDetReason { get; set; }
         public string ReasonCode { get; set; }
         public int Weight { get; set; }

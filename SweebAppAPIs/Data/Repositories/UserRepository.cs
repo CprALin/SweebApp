@@ -37,7 +37,7 @@ namespace SweebAppAPIs.Data.Repositories
 
         public async Task<Models.LoginUserResults?> LoginAsync(string username)
         {
-           return await _context.LoginUserResults.FromSqlInterpolated($"EXEC loginUser {username}").AsNoTracking().FirstOrDefaultAsync();
+           return await _context.LoginUserResults.FromSqlInterpolated($"EXEC loginUser {username}").AsNoTracking().AsAsyncEnumerable().FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateUserEmail(int userId , string newEmail) 
@@ -61,7 +61,7 @@ namespace SweebAppAPIs.Data.Repositories
 
         public async Task<Models.UserSettings?> GetUserSettingsAsync(int userId)
         {
-            return await _context.UserSettings.FromSqlInterpolated($"EXEC getSettings {userId}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.UserSettings.FromSqlInterpolated($"EXEC getSettings {userId}").AsNoTracking().AsAsyncEnumerable().FirstOrDefaultAsync();
         }
 
         public async Task UpdateAllwaysOnTopAsync(int idSettings , int allwaysOnTop)
@@ -103,7 +103,7 @@ namespace SweebAppAPIs.Data.Repositories
 
         public async Task<Models.UserData?> GetUserData(string username)
         {
-            return await _context.UserData.FromSqlInterpolated($"EXEC getUserAfterLogin {username}").AsNoTracking().FirstOrDefaultAsync();
+            return await _context.UserData.FromSqlInterpolated($"EXEC getUserAfterLogin {username}").AsNoTracking().AsAsyncEnumerable().FirstOrDefaultAsync();
         }
     }
 }

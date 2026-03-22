@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SweebAppAPIs.Models;
 
 namespace SweebAppAPIs.Data
 {
@@ -17,5 +18,14 @@ namespace SweebAppAPIs.Data
         public DbSet<Models.ThreatEventsWithDevice> ThreatEventsWithDevice { get; set; }
         public DbSet<Models.RuleHitsActivity> RuleHitsActivity { get; set; }
         public DbSet<Models.UserData> UserData { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<LoginUserResults>().HasNoKey();
+            modelBuilder.Entity<ThreatEventsWithDevice>().HasNoKey();
+            modelBuilder.Entity<RuleHitsActivity>().HasNoKey();
+            modelBuilder.Entity<UserData>().HasNoKey();
+            modelBuilder.Entity<AlertsFeed>().HasNoKey();
+        }
     }
 }

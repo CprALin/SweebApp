@@ -1,7 +1,9 @@
-﻿namespace SweebAppAPIs.Models
+﻿
+namespace SweebAppAPIs.Models
 {
     public class AlertsFeed
     {
+
         public int IdAlert { get; set; }
         public int UserId { get; set; }
         public int DeviceId { get; set; }

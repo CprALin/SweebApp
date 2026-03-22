@@ -1,7 +1,9 @@
-﻿namespace SweebAppAPIs.Models
+﻿
+namespace SweebAppAPIs.Models
 {
     public class ThreatEventsWithDevice
     {
+
        public int IdThreatEvent {  get; }
 	   public int UserId { get; set; }
 	   public int DeviceID { get; set; }

@@ -1,4 +1,5 @@
-﻿namespace SweebAppAPIs.Models
+﻿
+namespace SweebAppAPIs.Models
 {
     public class RuleHitsActivity
     {

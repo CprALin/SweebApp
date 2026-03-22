@@ -1,7 +1,10 @@
-﻿namespace SweebAppAPIs.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SweebAppAPIs.Models
 {
     public class Rules
     {
+        [Key]
         public int IdRule { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }

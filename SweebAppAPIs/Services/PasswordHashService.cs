@@ -11,7 +11,7 @@ namespace SweebAppAPIs.Services
     {
         public string HashPassword(string password)
         {
-            byte[] salt = RandomNumberGenerator.GetBytes(16);
+            byte[] salt = RandomNumberGenerator.GetBytes(32);
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
 
             var argon2 = new Argon2id(passwordBytes)
@@ -19,7 +19,7 @@ namespace SweebAppAPIs.Services
                 Salt = salt,
                 DegreeOfParallelism = 1,
                 Iterations = 2,
-                MemorySize = 19 * 1024 
+                MemorySize = 64 * 1024 
             };
 
             byte[] hash = argon2.GetBytes(32);
@@ -42,7 +42,7 @@ namespace SweebAppAPIs.Services
                 Salt = salt,
                 DegreeOfParallelism = 1,
                 Iterations = 2,
-                MemorySize = 19 * 1024
+                MemorySize = 64 * 1024
             };
 
             byte[] actualHash = argon2.GetBytes(32);

@@ -1,17 +1,18 @@
 ﻿using SweebAppAPIs.Data.Repositories;
 using SweebAppAPIs.Models;
+using SweebAppAPIs.Models.Responses;
 using SweebAppAPIs.Services.Interfaces;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace SweebAppAPIs.Services
 {
-    public class AuthService(IUserRepository userRepository, IPasswordHashService passwordHashService, IJwtService jwtService) : IAuthService
+    public class AuthService(IUserRepository userRepository, IPasswordHashService passwordHashService, IJwtService jwtService, IWebHostEnvironment env) : IAuthService
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IPasswordHashService _passwordHashService = passwordHashService;
         private readonly IJwtService _jwtService = jwtService;
-
+        private readonly IWebHostEnvironment _env = env;
         public async Task<Result> RegisterAsync(string username , string email , string password)
         {
             bool checkEmpty = String.IsNullOrEmpty(username) || String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password);
@@ -69,12 +70,12 @@ namespace SweebAppAPIs.Services
                     Message = "Registered successfully!"
                 };
             }
-            catch
+            catch(Exception ex)
             {
                 return new Result
                 {
                     Success = false,
-                    Message = "An unexpected error occurred."
+                    Message = _env.IsDevelopment() ? ex.Message : "An unexpected error occurred."
                 };
             }
         }
@@ -100,7 +101,7 @@ namespace SweebAppAPIs.Services
                     return new Result
                     {
                         Success = false,
-                        Message = "Login faild."
+                        Message = "Login faild. Username is incorect."
                     };
                 }
 
@@ -127,18 +128,38 @@ namespace SweebAppAPIs.Services
                     
                 var token = _jwtService.GenerateToken(userData);
 
+                var response = new LoginResponse
+                {
+                    Success = true,
+                    IdUser = userData.IdUser,
+                    IdSettings = userData.IdSettings,
+                    Username = userData.Username,
+                    Email = userData.Email,
+                    PasswordHash = userData.PasswordHash,
+                    CreatedAt = userData.CreatedAt,
+                    LastLogin = userData.LastLogin,
+                    PhoneNumber = userData.PhoneNumber,
+                    UserRole = userData.UserRole,
+                    AllwaysOnTop = userData.AllwaysOnTop,
+                    AllowNotifications = userData.AllowNotifications,
+                    Theme = userData.Theme,
+                    RunAtStartup = userData.RunAtStartup,
+                    Token = token
+                };
+
                 return new Result
                 {
                   Success = true,
-                  Message = token
+                  Message = "Login successful.",
+                  Data = response
                 };
             }
-            catch
+            catch(Exception ex)
             {
                 return new Result
                 {
                     Success = false,
-                    Message = "An unexpected error occurred."
+                    Message = _env.IsDevelopment() ? ex.Message : "An unexpected error occurred."
                 };
             }
         }

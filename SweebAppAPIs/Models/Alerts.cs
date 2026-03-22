@@ -1,7 +1,10 @@
-﻿namespace SweebAppAPIs.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SweebAppAPIs.Models
 {
     public class Alerts
     {
+        [Key]
         public int IdAlert { get; set; }
         public int UserId { get; set; }
         public int ThreatEventId { get; set; }
