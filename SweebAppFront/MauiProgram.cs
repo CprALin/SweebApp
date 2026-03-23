@@ -18,7 +18,7 @@ namespace SweebAppFront
 
             builder.Services
                  .RegisterServices()
-                 .ViewModelRegistration()
+                 .RegisterViewModels()
                  .RegisterPages();
 
             return builder.Build();

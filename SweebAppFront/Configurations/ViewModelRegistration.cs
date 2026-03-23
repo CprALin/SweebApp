@@ -6,7 +6,7 @@ namespace SweebAppFront.Configurations
 {
     public static class ViewModelRegistration
     {
-        public static IServiceCollection ViewModelRegistration(this IServiceCollection services)
+        public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
             // services.AddTransient<Page>();
             return services;
