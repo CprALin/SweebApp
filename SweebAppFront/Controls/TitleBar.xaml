@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="SweebAppFront.Controls.TitleBar"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Grid x:Name="TitleBarRoot"
+          BackgroundColor="#1E293B"
+          HeightRequest="40"
+          Padding="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- TITLE -->
+        <Label Text="SweebApp"
+               TextColor="White"
+               VerticalOptions="Center" />
+
+        <!-- BUTTONS -->
+        <HorizontalStackLayout Grid.Column="1" Spacing="6">
+
+            <Button Text="_"
+                    WidthRequest="40"
+                    Clicked="OnMinimize"/>
+
+            <Button Text="□"
+                    WidthRequest="40"
+                    Clicked="OnMaximize"/>
+
+            <Button Text="X"
+                    WidthRequest="40"
+                    BackgroundColor="Red"
+                    Clicked="OnClose"/>
+
+        </HorizontalStackLayout>
+    </Grid>
+</ContentView>

@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Maui.LifecycleEvents;
 using SweebAppFront.Configurations;
+#if WINDOWS
+using WinRT.Interop;
+using SweebAppFront.Platforms.Windows;
+#endif
 
 namespace SweebAppFront
 {
@@ -20,6 +24,21 @@ namespace SweebAppFront
                  .RegisterServices()
                  .RegisterViewModels()
                  .RegisterPages();
+
+            builder.ConfigureLifecycleEvents(events =>
+            {
+#if WINDOWS
+                events.AddWindows(w =>
+                {
+                    w.OnWindowCreated(window =>
+                    {
+                        var hwnd = WindowNative.GetWindowHandle(window);
+                        
+                       
+                    });
+                });
+#endif
+            });
 
             return builder.Build();
         }

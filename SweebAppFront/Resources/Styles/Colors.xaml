@@ -2,4 +2,18 @@
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Primary">#005461</Color>
+    <Color x:Key="Variant">#0C7779</Color>
+    <Color x:Key="Accent">#249E94</Color>
+    <Color x:Key="Highlight">#3BC1A8</Color>
+
+    <Color x:Key="TextPrimary">#F5EEDD</Color>
+    <Color x:Key="TextSecondary">#F1EFEC</Color>
+    <Color x:Key="TextDisabled">#948979</Color>
+
+    <Color x:Key="Error">#F63049</Color>
+    <Color x:Key="Success">#08CB00</Color>
+
+
 </ResourceDictionary>
