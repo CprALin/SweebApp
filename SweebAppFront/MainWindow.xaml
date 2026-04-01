@@ -5,13 +5,13 @@
              Title="MainWindow">
 
     <Window.TitleBar>
-        <TitleBar BackgroundColor="{DynamicResource Accent}" 
+        <TitleBar BackgroundColor="{DynamicResource Accent}"
                   Title="SweebApp"
                   Subtitle="Phishing Detection"
                   HeightRequest="64">
-                    <TitleBar.LeadingContent>
-                        <Image Source="phishing.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
-                    </TitleBar.LeadingContent>
+            <TitleBar.LeadingContent>
+                <Image Source="phishing_img.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
+            </TitleBar.LeadingContent>
         </TitleBar>
     </Window.TitleBar> 
 </Window>

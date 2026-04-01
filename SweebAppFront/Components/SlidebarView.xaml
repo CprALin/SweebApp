@@ -2,11 +2,14 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SweebAppFront.Components.SlidebarView"
+             xmlns:components="clr-namespace:SweebAppFront.Components"
              Background="{DynamicResource Accent}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Slidebar"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    
+    <Border Stroke="{DynamicResource Variant}" StrokeThickness="3" Padding="0">
+        <VerticalStackLayout Spacing="12" Margin="10">
+            <components:MenuButtons />
+            <components:MenuButtons />
+        </VerticalStackLayout>
+    </Border>
+    
 </ContentView>

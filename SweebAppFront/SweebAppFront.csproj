@@ -63,6 +63,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Resources\Splash\**" />
+	  <Compile Remove="Resources\Splash\**" />
+	  <EmbeddedResource Remove="Resources\Splash\**" />
+	  <MauiCss Remove="Resources\Splash\**" />
+	  <MauiXaml Remove="Resources\Splash\**" />
+	  <None Remove="Resources\Splash\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 		<PackageReference Include="Microsoft.UI.Xaml" Version="2.8.7" />
@@ -70,7 +79,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
-	  <Folder Include="Resources\Splash\" />
 	  <Folder Include="Services\Interfaces\" />
 	  <Folder Include="ViewModels\" />
 	</ItemGroup>
@@ -85,6 +93,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Components\MenuButtons.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Components\SlidebarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -8,6 +8,8 @@
     <Grid ColumnDefinitions="*,240" RowDefinitions="*" Background="{DynamicResource Primary}">
         <components:SlidebarView Grid.Column="1"/>
 
-        <ContentView x:Name="PageHost" Grid.Column="0" Background="{DynamicResource Primary}"/>
+        <Border Stroke="{DynamicResource Accent}" StrokeThickness="1" Padding="0">
+            <ContentView x:Name="PageHost" Grid.Column="0" Background="{DynamicResource Primary}"/>
+        </Border>
     </Grid>
 </ContentPage>
