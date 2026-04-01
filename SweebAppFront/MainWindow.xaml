@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SweebAppFront.MainWindow"
+             Title="MainWindow">
+
+    <Window.TitleBar>
+        <TitleBar BackgroundColor="{DynamicResource Accent}" 
+                  Title="SweebApp"
+                  Subtitle="Phishing Detection"
+                  HeightRequest="64">
+                    <TitleBar.LeadingContent>
+                        <Image Source="phishing.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
+                    </TitleBar.LeadingContent>
+        </TitleBar>
+    </Window.TitleBar> 
+</Window>

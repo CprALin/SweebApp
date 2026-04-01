@@ -8,6 +8,8 @@ namespace SweebAppFront.Configurations
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<MainWindow>();
+
             return services;
         }
     }

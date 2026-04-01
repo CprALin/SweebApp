@@ -10,8 +10,7 @@ namespace SweebAppFront
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .AddAppFonts()
-                .AddWindowsConfigurations();
+                .AddAppFonts();
 
             builder.Services
                  .RegisterServices()

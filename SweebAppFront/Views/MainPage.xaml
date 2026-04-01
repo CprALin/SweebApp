@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SweebAppFront.Views.MainPage"
-    xmlns:components="clr-namespace:SweebAppFront.Components">
+    xmlns:components="clr-namespace:SweebAppFront.Components"
+    Padding="0">
 
     <Grid ColumnDefinitions="*,240" RowDefinitions="*" Background="{DynamicResource Primary}">
         <components:SlidebarView Grid.Column="1"/>
