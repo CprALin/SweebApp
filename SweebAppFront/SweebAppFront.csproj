@@ -50,9 +50,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiImage Include="Resources\AppIcon\phishing.png" />
+		<MauiIcon Include="Resources\AppIcon\phishing.svg" />
 				   
-		<!-- Images -->
+	    <!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		
 		<!-- Custom Fonts -->

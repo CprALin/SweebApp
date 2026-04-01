@@ -49,6 +49,7 @@ public partial class MainWindow : Window
 		titleBar.ButtonInactiveBackgroundColor = accent;
 		titleBar.ButtonInactiveForegroundColor = text;
 
+		titleBar.ForegroundColor = text;
 		titleBar.InactiveForegroundColor = text;
 
 	}
