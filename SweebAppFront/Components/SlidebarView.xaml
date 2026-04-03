@@ -6,9 +6,11 @@
              Background="{DynamicResource Accent}">
     
     <Border Stroke="{DynamicResource Variant}" StrokeThickness="3" Padding="0">
-        <VerticalStackLayout Spacing="12" Margin="10">
-            <components:MenuButtons />
-            <components:MenuButtons />
+        <VerticalStackLayout Spacing="12" Margin="20">
+            <components:MenuButtons 
+                IconPath="dashboard.png" 
+                MenuText="Dashboard" 
+            />
         </VerticalStackLayout>
     </Border>
     
