@@ -11,6 +11,19 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="{Binding Source={x:Reference self}, Path=SetButtonRadius}"/>
         </Border.StrokeShape>
+        <Border.Behaviors>
+            <toolkit:TouchBehavior
+                DefaultAnimationDuration="250"
+                DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                PressedOpacity="0.8"
+                PressedScale="0.9"
+                HoveredScale="1.05"
+            />
+        </Border.Behaviors>
+
+        <Border.GestureRecognizers>
+            <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+        </Border.GestureRecognizers>
 
         <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Margin="5">
 

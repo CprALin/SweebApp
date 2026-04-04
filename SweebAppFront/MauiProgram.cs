@@ -1,5 +1,5 @@
-﻿using Microsoft.Maui.LifecycleEvents;
-using SweebAppFront.Configurations;
+﻿using SweebAppFront.Configurations;
+using CommunityToolkit.Maui;
 
 namespace SweebAppFront
 {
@@ -10,6 +10,7 @@ namespace SweebAppFront
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .AddAppFonts();
 
             builder.Services

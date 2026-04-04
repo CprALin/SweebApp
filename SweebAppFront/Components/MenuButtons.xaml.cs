@@ -1,11 +1,29 @@
-using Microsoft.Maui.Controls.PlatformConfiguration;
 
 namespace SweebAppFront.Components;
 
+
 public partial class MenuButtons : ContentView
 {
+	private async void OnPointerEntered(object sender, PointerEventArgs e)
+	{
+		MenuButton.Shadow = new Shadow
+		{
+			Brush = (Color)Application.Current!.Resources["Primary"],
+			Offset = new Point(5,5),
+			Radius = 5,
+			Opacity = 0.5f
+		};
+	}
 
-	public static readonly BindableProperty IconPathProperty = BindableProperty.Create(
+	private async void OnPointerExited(object sender, PointerEventArgs e)
+	{
+		MenuButton.Shadow = new Shadow
+		{
+			Opacity = 0
+		};
+	}
+
+    public static readonly BindableProperty IconPathProperty = BindableProperty.Create(
 		nameof(IconPath),
 		typeof(string),
 		typeof(MenuButtons),
