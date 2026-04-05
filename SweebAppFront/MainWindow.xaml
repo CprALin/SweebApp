@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Window xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="SweebAppFront.MainWindow"
-             Title="MainWindow">
+             Title="SweebApp">
 
     <Window.TitleBar>
         <TitleBar BackgroundColor="{DynamicResource Accent}"
                   Title="SweebApp"
                   Subtitle="Phishing Detection"
-                  HeightRequest="64">
+                  HeightRequest="50">
             <TitleBar.LeadingContent>
                 <Image Source="phishing_img.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
             </TitleBar.LeadingContent>
+            <TitleBar.TrailingContent>
+                <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                    <Label Text="Username"/>
+                    <Image Source="account.png" WidthRequest="20" HeightRequest="20"/>
+                </HorizontalStackLayout>
+            </TitleBar.TrailingContent>
         </TitleBar>
     </Window.TitleBar> 
 </Window>

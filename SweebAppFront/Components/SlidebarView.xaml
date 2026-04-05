@@ -4,12 +4,52 @@
              x:Class="SweebAppFront.Components.SlidebarView"
              xmlns:components="clr-namespace:SweebAppFront.Components"
              Background="{DynamicResource Accent}">
-    
+
     <Border Stroke="{DynamicResource Variant}" StrokeThickness="3" Padding="0">
-        <VerticalStackLayout Spacing="12" Margin="20">
-            <components:MenuButtons 
+        <VerticalStackLayout Spacing="20" Margin="20">
+            <components:MenuButton 
                 IconPath="dashboard.png" 
                 MenuText="Dashboard" 
+                PageKey="Dashboard"
+                CurrentPageKey="{Binding CurrentPageKey}"
+                Command="{Binding NavigateCommand}"
+                CommandParam="Dashboard"
+            />
+
+            <components:MenuButton 
+                IconPath="web_requests.png"
+                MenuText="Live Requests"
+                PageKey="LiveRequests"
+                CurrentPageKey="{Binding CurrentPageKey}"
+                Command="{Binding NavigateCommand}"
+                CommandParam="LiveRequests"
+            />
+
+            <components:MenuButton 
+                IconPath="devices.png"
+                MenuText="Devices"
+                PageKey="Devices"
+                CurrentPageKey="{Binding CurrentPageKey}"
+                Command="{Binding NavigateCommand}"
+                CommandParam="Devices"
+            />
+
+            <components:MenuButton 
+                IconPath="rules.png"
+                MenuText="Rules"
+                PageKey="Rules"
+                CurrentPageKey="{Binding CurrentPageKey}"
+                Command="{Binding NavigateCommand}"
+                CommandParam="Rules"
+            />
+            
+            <components:MenuButton 
+                IconPath="warning.png"
+                MenuText="Threats"
+                PageKey="Threats"
+                CurrentPageKey="{Binding CurrentPageKey}"
+                Command="{Binding NavigateCommand}"
+                CommandParam="Threats"
             />
         </VerticalStackLayout>
     </Border>

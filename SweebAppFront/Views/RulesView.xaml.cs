@@ -1,8 +1,8 @@
 namespace SweebAppFront.Views;
 
-public partial class HomePage : ContentView
+public partial class RulesView : ContentView
 {
-	public HomePage()
+	public RulesView()
 	{
 		InitializeComponent();
 	}
