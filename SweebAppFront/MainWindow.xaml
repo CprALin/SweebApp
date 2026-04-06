@@ -14,8 +14,8 @@
                 <Image Source="phishing_img.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
             </TitleBar.LeadingContent>
             <TitleBar.TrailingContent>
-                <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
-                    <Label Text="Username"/>
+                <HorizontalStackLayout VerticalOptions="Center" Spacing="10" IsVisible="{Binding AuthStateService.IsLoggedIn}">
+                    <Label Text="{Binding AuthStateService.Username}"/>
                     <Image Source="account.png" WidthRequest="20" HeightRequest="20"/>
                 </HorizontalStackLayout>
             </TitleBar.TrailingContent>

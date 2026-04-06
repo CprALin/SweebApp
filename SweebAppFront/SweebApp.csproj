@@ -79,11 +79,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
-	  <Folder Include="Services\Interfaces\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Components\MenuButton.xaml.cs">
 	    <DependentUpon>MenuButton.xaml</DependentUpon>
 	  </Compile>
@@ -112,6 +107,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LiveRequestsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MainPage.xaml">

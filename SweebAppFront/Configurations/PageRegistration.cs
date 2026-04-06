@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SweebAppFront.Views;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,20 @@ namespace SweebAppFront.Configurations
     {
         public static IServiceCollection RegisterPages(this IServiceCollection services)
         {
-            // services.AddTransient<Page>();
+            //Window
+            services.AddSingleton<MainWindow>();
+            
+            //Pages
+            services.AddSingleton<MainPage>();
+            services.AddTransient<LoginPage>();
+
+            //Views
+            services.AddTransient<DashboardView>();
+            services.AddTransient<LiveRequestsView>();
+            services.AddTransient<DevicesView>();
+            services.AddTransient<RulesView>();
+            services.AddTransient<ThreatsView>();
+
             return services;
         }
     }

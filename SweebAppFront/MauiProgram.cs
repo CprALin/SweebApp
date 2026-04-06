@@ -14,9 +14,9 @@ namespace SweebAppFront
                 .AddAppFonts();
 
             builder.Services
-                 .RegisterServices()
+                 .RegisterPages()
                  .RegisterViewModels()
-                 .RegisterPages();
+                 .RegisterServices();
 
             return builder.Build();
         }

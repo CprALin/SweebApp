@@ -1,65 +1,41 @@
-﻿using SweebAppFront.Views;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using SweebAppFront.Services.Interfaces;
 using System.Windows.Input;
 
 namespace SweebAppFront.ViewModels
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : BaseViewModel
     {
+        private readonly INavigationService _navigationService;
+
         private View? _currentView;
         private string _currentPageKey = "Dashboard";
-
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         public View? CurrentView
         {
             get => _currentView;
-            set
-            {
-                if (_currentView == value) return;
-                _currentView = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _currentView, value);
         }
 
         public string CurrentPageKey
         {
             get => _currentPageKey;
-            set
-            {
-                if (_currentPageKey == value) return;
-                _currentPageKey = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _currentPageKey, value);
         }
 
         public ICommand NavigateCommand { get; }
 
-        public MainPageViewModel()
+        public MainPageViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             NavigateCommand = new Command<string>(Navigate);
             Navigate(CurrentPageKey);
         }
+
         private void Navigate(string key)
         {
             CurrentPageKey = key;
-
-            CurrentView = key switch
-            {
-                "Dashboard" => new DashboardView(),
-                "LiveRequests" => new LiveRequestsView(),
-                "Devices" => new DevicesView(),
-                "Rules" => new RulesView(),
-                "Threats" => new ThreatsView(),
-                _ => new DashboardView()
-            };
+            CurrentView = _navigationService.GetView(key);
         }
-
-        private void OnPropertyChanged([CallerMemberName] string? name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
     }
 }

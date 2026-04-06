@@ -5,14 +5,20 @@ using WinColor = Windows.UI.Color;
 #endif
 
 
+using SweebAppFront.Services.Interfaces;
+
 namespace SweebAppFront;
 
 public partial class MainWindow : Window
 {
-	public MainWindow()
+	public IAuthStateService AuthStateService { get; }
+    public MainWindow(IAuthStateService authStateService)
 	{
 		InitializeComponent();
-		Page = new Views.MainPage();
+		AuthStateService = authStateService;
+		
+		BindingContext = this;
+
 #if WINDOWS
 	Created += OnCreated;
 #endif

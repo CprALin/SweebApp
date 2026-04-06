@@ -2,9 +2,9 @@ using SweebAppFront.ViewModels;
 
 namespace SweebAppFront.Views;
 
-public partial class MainPage : ContentPage
+public partial class LoginPage : ContentPage
 {
-	public MainPage(MainPageViewModel viewModel)
+	public LoginPage(LoginViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;

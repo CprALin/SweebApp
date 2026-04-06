@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SweebAppFront.Views.LoginPage"
+             Title="Login"
+             BackgroundColor="{DynamicResource Accent}">
+    <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+        <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+            <Image Source="login.png" HeightRequest="400" WidthRequest="400" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="100" Spacing="30" MaximumWidthRequest="800">
+            <Label 
+                 Text="Login"
+                 FontSize="28"
+                FontAttributes="Bold"
+            />
+
+            <Entry
+                Placeholder="Email"
+                Text="{Binding Email}"    
+            />
+
+            <Entry
+                Placeholder="Password"
+                IsPassword="True"
+                Text="{Binding Password}"
+            />
+
+            <Button 
+                Text="Login"
+                Command="{Binding LoginCommand}"
+                HeightRequest="40"
+                WidthRequest="100"
+            />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+            />
+
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red"
+            />
+
+            <Label 
+                Text="{Binding Username}"
+                FontAttributes="Bold"
+            />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

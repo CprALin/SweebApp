@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SweebAppFront.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,9 @@ namespace SweebAppFront.Configurations
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
-            // services.AddTransient<Page>();
+            services.AddSingleton<MainPageViewModel>();
+            services.AddTransient<LoginViewModel>();
+
             return services;
         }
     }
