@@ -95,8 +95,6 @@ namespace SweebAppFront.ViewModels
                     _authStateService.IsLoggedIn = true;
                     _authStateService.Username = response.Username;
 
-                    IsLoggedIn = true;
-                    Username = response.Username;
                     ErrorMessage = string.Empty;
                 }
                 else

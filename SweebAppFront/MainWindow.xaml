@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="SweebAppFront.MainWindow"
+             x:Name="RootWindow"
              Title="SweebApp">
 
     <Window.TitleBar>
@@ -14,8 +15,8 @@
                 <Image Source="phishing_img.png" WidthRequest="25" HeightRequest="25" Margin="15,0,0,0"/>
             </TitleBar.LeadingContent>
             <TitleBar.TrailingContent>
-                <HorizontalStackLayout VerticalOptions="Center" Spacing="10" IsVisible="{Binding AuthStateService.IsLoggedIn}">
-                    <Label Text="{Binding AuthStateService.Username}"/>
+                <HorizontalStackLayout VerticalOptions="Center" Spacing="10" IsVisible="{Binding Source={x:Reference RootWindow}, Path=BindingContext.IsLoggedIn}">
+                    <Label Text="{Binding Source={x:Reference RootWindow}, Path=BindingContext.Username}"/>
                     <Image Source="account.png" WidthRequest="20" HeightRequest="20"/>
                 </HorizontalStackLayout>
             </TitleBar.TrailingContent>

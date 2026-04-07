@@ -13,7 +13,7 @@ namespace SweebAppFront.Configurations
             services.AddSingleton<MainWindow>();
             
             //Pages
-            services.AddSingleton<MainPage>();
+            services.AddTransient<MainPage>();
             services.AddTransient<LoginPage>();
 
             //Views

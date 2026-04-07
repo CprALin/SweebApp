@@ -11,13 +11,11 @@ namespace SweebAppFront;
 
 public partial class MainWindow : Window
 {
-	public IAuthStateService AuthStateService { get; }
     public MainWindow(IAuthStateService authStateService)
 	{
 		InitializeComponent();
-		AuthStateService = authStateService;
 		
-		BindingContext = this;
+		BindingContext = authStateService;
 
 #if WINDOWS
 	Created += OnCreated;
