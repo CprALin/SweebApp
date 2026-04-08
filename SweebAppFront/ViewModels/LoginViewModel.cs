@@ -64,6 +64,7 @@ namespace SweebAppFront.ViewModels
             LoginCommand = new Command(async () => await LoginAsync(), CanLogin);
         }
 
+
         private bool CanLogin()
         {
             return !IsLoading;

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:SweebAppFront.Converters"
              x:Class="SweebAppFront.Views.LoginPage"
              Title="Login"
              BackgroundColor="{DynamicResource Accent}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid ColumnDefinitions="*,*" RowDefinitions="*">
         <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
             <Image Source="login.png" HeightRequest="400" WidthRequest="400" />
@@ -15,37 +22,52 @@
                 FontAttributes="Bold"
             />
 
-            <Entry
+            <Entry 
                 Placeholder="Email"
-                Text="{Binding Email}"    
+                Text="{Binding Email}" 
+                ReturnType="Next"
+                Completed="OnEmailCompleted"
             />
 
             <Entry
+                x:Name="PasswordEntry"
                 Placeholder="Password"
                 IsPassword="True"
                 Text="{Binding Password}"
+                ReturnType="Done"
+                Completed="OnPasswordCompleted"
             />
 
-            <Button 
-                Text="Login"
-                Command="{Binding LoginCommand}"
-                HeightRequest="40"
-                WidthRequest="100"
-            />
+            <Grid>
+                <Button 
+                    Command="{Binding LoginCommand}"
+                    HeightRequest="40"
+                    WidthRequest="100"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBool}}"
+                />
 
-            <ActivityIndicator
-                IsRunning="{Binding IsLoading}"
-                IsVisible="{Binding IsLoading}"
-            />
+                <Grid>
+                    <!-- Text -->
+                    <Label 
+                        Text="Login"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        IsVisible="{Binding IsLoading, Converter={StaticResource InverseBool}}"
+                    />
+
+                    <!-- Loader -->
+                    <ActivityIndicator
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                    />  
+                </Grid>
+            </Grid>
 
             <Label
                 Text="{Binding ErrorMessage}"
                 TextColor="Red"
-            />
-
-            <Label 
-                Text="{Binding Username}"
-                FontAttributes="Bold"
             />
         </VerticalStackLayout>
     </Grid>

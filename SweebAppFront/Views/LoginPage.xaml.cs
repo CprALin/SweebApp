@@ -9,4 +9,18 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+    private void OnEmailCompleted(object sender, EventArgs e)
+    {
+        PasswordEntry.Focus();
+    }
+
+	private void OnPasswordCompleted(object sender, EventArgs e)
+	{
+		if(BindingContext is LoginViewModel viewModel && viewModel.LoginCommand.CanExecute(null))
+		{
+			viewModel.LoginCommand.Execute(null);
+		}
+    }
+
 }
