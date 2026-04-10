@@ -15,5 +15,10 @@
     <Color x:Key="Error">#F63049</Color>
     <Color x:Key="Success">#08CB00</Color>
 
+    <Shadow x:Key="CardShadowAccent"
+        Brush="{StaticResource Highlight}"
+        Offset="10,10"
+        Radius="60"
+        Opacity="0.8" />
 
 </ResourceDictionary>

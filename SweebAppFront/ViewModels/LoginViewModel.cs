@@ -12,8 +12,8 @@ namespace SweebAppFront.ViewModels
         private readonly IAuthService _authService;
         private readonly IAuthStateService _authStateService;
 
-        private string _email = string.Empty;
-        private string _password = string.Empty;
+        private string _email = "admin@test.com";
+        private string _password = "1234";
         private string _errorMessage = string.Empty;
         private bool _isLoading;
         private bool _isLoggedIn;

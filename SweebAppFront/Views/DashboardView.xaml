@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="SweebAppFront.Views.DashboardView"
              Background="{DynamicResource Primary}">
     
-    <VerticalStackLayout>
+    <Grid RowDefinitions="80,*" ColumnDefinitions="*">
         <Label 
             Text="Dashboard"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            Margin="20"
+            FontSize="30"
+            FontAttributes="Bold"
+            Grid.Row="0"
+        />
+
+        <Border Grid.Row="1" Margin="20" StrokeThickness="0" Shadow="{DynamicResource CardShadowAccent}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+
+            <lvc:CartesianChart
+                LegendPosition="Right"
+                BackgroundColor="{DynamicResource Highlight}"
+                
+            >
+                <lvc:CartesianChart.Series>
+                    <lvc:SeriesCollection>
+                        <lvc:XamlLineSeries SeriesName="Threats" Values="5, 10, 12, 8, 4"/>
+                    </lvc:SeriesCollection>
+                </lvc:CartesianChart.Series>
+            </lvc:CartesianChart>
+        </Border>
+    </Grid>
 </ContentView>

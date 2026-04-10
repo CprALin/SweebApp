@@ -1,5 +1,7 @@
-﻿using SweebAppFront.Configurations;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
+using LiveChartsCore.SkiaSharpView.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
+using SweebAppFront.Configurations;
 
 namespace SweebAppFront
 {
@@ -11,6 +13,8 @@ namespace SweebAppFront
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
+                .UseLiveCharts()
                 .AddAppFonts();
 
             builder.Services
