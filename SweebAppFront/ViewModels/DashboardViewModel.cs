@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SweebAppFront.ViewModels
 {
-    class DashboardViewModel
+    public class DashboardViewModel
     {
+
     }
 }
