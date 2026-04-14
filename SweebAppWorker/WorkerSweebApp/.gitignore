@@ -1,0 +1,69 @@
+# Build
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Xamarin / MAUI specific
+*.apk
+*.ap_*
+*.aab
+*.ipa
+
+# Android
+*.keystore
+*.jks
+
+# iOS
+*.dSYM/
+*.mobileprovision
+
+# Windows
+*.appx
+*.appxbundle
+*.appxupload
+
+# MAUI platform build folders
+Platforms/Android/bin/
+Platforms/Android/obj/
+Platforms/iOS/bin/
+Platforms/iOS/obj/
+Platforms/Windows/bin/
+Platforms/Windows/obj/
+
+# Publish
+publish/
+
+# Local secrets
+secrets.json
+
+# Backup files
+*.bak
+*.backup
