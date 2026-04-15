@@ -1,4 +1,4 @@
-USE SweebDataBase;
+ USE SweebDataBase;
 GO;
 
 /*
