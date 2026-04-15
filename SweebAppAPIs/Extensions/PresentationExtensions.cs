@@ -56,6 +56,7 @@ namespace SweebAppAPIs.Extensions
                 jwtOptions.MapInboundClaims = false;
             });
 
+            services.AddSignalR();
             services.AddAuthorization();
 
             return services;

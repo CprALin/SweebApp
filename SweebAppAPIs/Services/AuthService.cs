@@ -16,7 +16,7 @@ namespace SweebAppAPIs.Services
         public async Task<Result> RegisterAsync(string username , string email , string password)
         {
             bool checkEmpty = String.IsNullOrEmpty(username) || String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password);
-            bool checkUsernameLength = username.Length < 7;
+            bool checkUsernameLength = username.Length < 4;
             bool checkValidEmail = IsValidEmail(email);
             bool checkValidPassword = IsValidPassword(password);
 

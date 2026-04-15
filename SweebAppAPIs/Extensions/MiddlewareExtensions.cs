@@ -1,4 +1,6 @@
 ﻿
+using SweebAppAPIs.Services;
+
 namespace SweebAppAPIs.Extensions
 {
     public static class MiddlewareExtensions
@@ -15,6 +17,7 @@ namespace SweebAppAPIs.Extensions
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+            app.MapHub<SignalRHub>("/signalRHub"); 
 
             app.UseCors("DefaultCors");
 
