@@ -2,10 +2,25 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SweebAppFront.Views.LiveRequestsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Live Requests"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="80,20,*" ColumnDefinitions="*">
+       <Label 
+          Text="Live Requests"
+          HorizontalOptions="Start"
+          VerticalOptions="Center"
+          Margin="20"
+          FontSize="30"
+          FontAttributes="Bold"
+          Grid.Row="0"
+       />
+
+        <Grid ColumnDefinitions="*,*,*,*,*,*" >
+            <Label Text="Method"/>
+            <Label Text="Protocol"/>
+            <Label Text="Url"/>
+            <Label Text="Host"/>
+            <Label Text="Port"/>
+            <Label Text="Threat"/>
+        </Grid>
+    </Grid>
 </ContentView>
