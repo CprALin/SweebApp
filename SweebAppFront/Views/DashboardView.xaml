@@ -5,18 +5,20 @@
              x:Class="SweebAppFront.Views.DashboardView"
              Background="{DynamicResource Primary}">
     
-    <Grid RowDefinitions="80,*" ColumnDefinitions="*">
-        <Label 
-            Text="Dashboard"
-            HorizontalOptions="Start"
-            VerticalOptions="Center"
-            Margin="20"
-            FontSize="30"
-            FontAttributes="Bold"
-            Grid.Row="0"
-        />
+    <Grid RowDefinitions="150,*" ColumnDefinitions="*">
+        <Grid ColumnDefinitions="*,*" Grid.Row="0">
+            <Label 
+                Text="Dashboard"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Margin="20"
+                FontSize="30"
+                FontAttributes="Bold"
+                Grid.Row="0"
+            />
+        </Grid>
 
-        <Border Grid.Row="1" Margin="20" StrokeThickness="0" Shadow="{DynamicResource CardShadowAccent}">
+        <Border Grid.Row="1" Margin="20,0,20,20" StrokeThickness="0" Shadow="{DynamicResource CardShadowAccent}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20"/>
             </Border.StrokeShape>

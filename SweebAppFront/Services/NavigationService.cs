@@ -21,8 +21,6 @@ namespace SweebAppFront.Services
             {
                 "Dashboard" => _provider.GetRequiredService<DashboardView>(),
                 "LiveRequests" => _provider.GetRequiredService<LiveRequestsView>(),
-                "Devices" => _provider.GetRequiredService<DevicesView>(),
-                "Rules" => _provider.GetRequiredService<RulesView>(),
                 "Threats" => _provider.GetRequiredService<ThreatsView>(),
                 _ => _provider.GetRequiredService<DashboardView>()
             };

@@ -13,15 +13,32 @@
     </ContentPage.Resources>
     <Grid ColumnDefinitions="*,*" RowDefinitions="*">
         <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
-            <Image Source="login.png" HeightRequest="400" WidthRequest="400" />
+            <Image Source="working.png" HeightRequest="400" WidthRequest="400" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Margin="100" Spacing="30" MaximumWidthRequest="800">
-            <Label 
-                 Text="Login"
-                 FontSize="28"
-                FontAttributes="Bold"
-            />
+            <Grid RowDefinitions="*,*">
+                <Label 
+                     Text="Welcome to the application 👋"
+                     FontSize="26"
+                     FontAttributes="Bold"
+                     Grid.Row="0"
+                />
 
+                <Label 
+                     Text="Tell us your name, and you're good to go !"
+                     FontSize="14"
+                     FontAttributes="Bold"
+                     Grid.Row="1"
+                />
+            </Grid>
+
+            <Entry 
+                Placeholder="Username"
+                Text="{Binding Username}"
+                ReturnType="Next"
+                Completed="OnUserCompleted"
+            />
+            <!--
             <Entry 
                 Placeholder="Email"
                 Text="{Binding Email}" 
@@ -37,32 +54,41 @@
                 ReturnType="Done"
                 Completed="OnPasswordCompleted"
             />
+-->
 
             <Grid>
-                <Button 
-                    Command="{Binding LoginCommand}"
+                <Grid.Behaviors>
+                    <toolkit:TouchBehavior
+                            DefaultAnimationDuration="250"
+                            DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                            PressedOpacity="0.8"
+                            PressedScale="0.9"
+                            HoveredScale="1.05"
+                        />  
+                </Grid.Behaviors>
+                
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnUserCompleted"/>
+                </Grid.GestureRecognizers>
+
+
+                <Button
                     HeightRequest="40"
-                    WidthRequest="100"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBool}}"
-                />
+                    WidthRequest="150"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBool}}"/>
 
                 <Grid>
-                    <!-- Text -->
-                    <Label 
-                        Text="Login"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        IsVisible="{Binding IsLoading, Converter={StaticResource InverseBool}}"
-                    />
+                        <Label
+                            Text="Open app"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource InverseBool}}"/>
 
-                    <!-- Loader -->
-                    <ActivityIndicator
-                        IsRunning="{Binding IsLoading}"
-                        IsVisible="{Binding IsLoading}"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                    />  
+                        <ActivityIndicator
+                            IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"/>
                 </Grid>
+
             </Grid>
 
             <Label

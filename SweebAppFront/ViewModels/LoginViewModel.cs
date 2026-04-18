@@ -12,24 +12,25 @@ namespace SweebAppFront.ViewModels
         private readonly IAuthService _authService;
         private readonly IAuthStateService _authStateService;
 
-        private string _email = "admin@test.com";
-        private string _password = "1234";
+        //private string _email = "admin@test.com";
+        //private string _password = "1234";
         private string _errorMessage = string.Empty;
         private bool _isLoading;
         private bool _isLoggedIn;
         private string _username =string.Empty;
 
+/*
         public string Email
         {
             get => _email;
             set => SetProperty(ref _email, value);
         }
-
         public string Password
         {
             get => _password;
             set => SetProperty(ref _password, value);
         }
+*/
 
         public string ErrorMessage
         {
@@ -70,6 +71,46 @@ namespace SweebAppFront.ViewModels
             return !IsLoading;
         }
 
+        private async Task LoginAsync()
+        {
+
+            try
+            {
+                IsLoading = true;
+                ErrorMessage = string.Empty;
+
+                var request = new LoginRequest
+                {
+                    Username = _username
+                };
+
+                var response = await _authService.LoginAsync(request);
+
+                if (response.Success)
+                {
+                    _authStateService.IsLoggedIn = true;
+                    _authStateService.Username = request.Username;
+
+                    ErrorMessage = string.Empty;
+                }
+                else
+                {
+                    _authStateService.IsLoggedIn = false;
+                    ErrorMessage = response.Message;
+                }
+            }            
+            catch (Exception)
+            {
+                ErrorMessage = $"An error has occured. Please try again.";
+            }
+            finally
+            {
+                IsLoading = false;
+                (LoginCommand as Command)?.ChangeCanExecute();
+            }
+        }
+
+        /*
         private async Task LoginAsync()
         {
             if(string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
@@ -114,6 +155,7 @@ namespace SweebAppFront.ViewModels
                 (LoginCommand as Command)?.ChangeCanExecute();
             }
         }
+        */
     }
 
 }

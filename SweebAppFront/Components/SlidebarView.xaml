@@ -24,7 +24,7 @@
                 Command="{Binding NavigateCommand}"
                 CommandParam="LiveRequests"
             />
-
+<!--
             <components:MenuButton 
                 IconPath="devices.png"
                 MenuText="Devices"
@@ -42,7 +42,8 @@
                 Command="{Binding NavigateCommand}"
                 CommandParam="Rules"
             />
-            
+          
+-->
             <components:MenuButton 
                 IconPath="warning.png"
                 MenuText="Threats"
