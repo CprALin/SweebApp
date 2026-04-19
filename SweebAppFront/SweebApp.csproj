@@ -104,9 +104,6 @@
 	  <MauiXaml Update="Views\DashboardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\DevicesView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\LiveRequestsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

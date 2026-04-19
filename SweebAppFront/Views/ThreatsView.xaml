@@ -1,11 +1,90 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="SweebAppFront.Views.ThreatsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Threats"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentView.Resources>
+        <Style x:Key="ContentLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+    </ContentView.Resources>
+    
+    <Grid RowDefinitions="80,*">
+        <Grid ColumnDefinitions="*,*" Grid.Row="0">
+            <Label 
+                Text="Threats"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Margin="20"
+                FontSize="30"
+                FontAttributes="Bold"
+            />
+        </Grid>
+
+        <CollectionView Grid.Row="1" Margin="20,0,20,20" ItemsSource="{Binding ThreatEvents}">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="{Binding Columns}" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border BackgroundColor="{DynamicResource Highlight}" Margin="20" HeightRequest="100" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
+                        <Border.GestureRecognizers>
+                            <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="90,*,150">
+                    
+                            <Image Source="cybercrime.png" HorizontalOptions="Start" Margin="15,0,0,0" HeightRequest="60" WidthRequest="60" Grid.Column="0"/>
+
+                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" Grid.Column="1" VerticalOptions="Center" RowSpacing="5">
+
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                                    <Label Text="{Binding Protocol}" Grid.Column="0"/>
+                                    <Label Text="{Binding URL}" Grid.Column="1" HorizontalOptions="Fill" LineBreakMode="WordWrap"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,*" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" ColumnSpacing="10">
+                                    <Label Text="{Binding Verdict}" Grid.Column="0"/>
+                                    <Label Text="{Binding Score}" Grid.Column="1"/>
+                                </Grid>
+
+                                <Grid Grid.Row="2" Grid.Column="0" HorizontalOptions="Start">
+                                    <Label Text="{Binding Timestamp, StringFormat='{0:MM/dd/yyyy HH:mm}'}" />
+                                </Grid>
+
+                                <Grid Grid.Column="1" Grid.Row="1" HorizontalOptions="End">
+                                    <Label Text="{Binding Category}" />
+                                </Grid>
+
+                                <Grid Grid.Column="1" Grid.Row="2" HorizontalOptions="End">
+                                    <Label Text="{Binding ActionTaken}"  />
+                                </Grid>
+                        
+                            </Grid>
+
+                            <Border HorizontalOptions="End" Margin="0,0,10,0" Grid.Column="2" WidthRequest="100" HeightRequest="40" BackgroundColor="{DynamicResource Primary}" StrokeShape="RoundRectangle 10">
+                                <Border.Behaviors>
+                                    <toolkit:TouchBehavior
+                                        DefaultAnimationDuration="250"
+                                        DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                        PressedOpacity="0.8"
+                                        PressedScale="1"
+                                        HoveredScale="1.05"
+                                    />
+                                </Border.Behaviors>
+                                <Grid ColumnDefinitions="*,*" VerticalOptions="Center" HorizontalOptions="Center" ColumnSpacing="6"> 
+                                    <Label Text="Unlock" Grid.Column="0" FontSize="15"/>
+                                    <Image Source="unlock.png" WidthRequest="20" HeightRequest="20" Grid.Column="1"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentView>

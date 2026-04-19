@@ -5,7 +5,7 @@
              x:Class="SweebAppFront.Views.DashboardView"
              Background="{DynamicResource Primary}">
     
-    <Grid RowDefinitions="150,*" ColumnDefinitions="*">
+    <Grid RowDefinitions="80,*" ColumnDefinitions="*">
         <Grid ColumnDefinitions="*,*" Grid.Row="0">
             <Label 
                 Text="Dashboard"
