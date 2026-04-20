@@ -38,6 +38,10 @@ namespace SweebAppFront
 
             _mainWindow.MinimumWidth = 1200;
             _mainWindow.MinimumHeight = 600;
+
+            var dispInfo = DeviceDisplay.Current.MainDisplayInfo;
+            _mainWindow.X = (dispInfo.Width / dispInfo.Density - _mainWindow.Width) / 2;
+            _mainWindow.Y = (dispInfo.Height / dispInfo.Density - _mainWindow.Height) / 2;
             
             return _mainWindow;
         }

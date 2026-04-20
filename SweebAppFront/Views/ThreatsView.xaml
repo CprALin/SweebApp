@@ -20,7 +20,30 @@
                 Margin="20"
                 FontSize="30"
                 FontAttributes="Bold"
+                Grid.Column="0"
             />
+
+            <Grid Grid.Column="1" ColumnDefinitions="*" HorizontalOptions="End" Margin="0,0,30,0">
+                <Border Grid.Column="0">
+                    <Border.Behaviors>
+                        <toolkit:TouchBehavior
+                                        DefaultAnimationDuration="250"
+                                        DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                        PressedOpacity="0.8"
+                                        PressedScale="1"
+                                        HoveredScale="1.05"
+                                    />
+                    </Border.Behaviors>
+
+
+                    <Border.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+                    </Border.GestureRecognizers>
+                    
+                    <Image Source="notification.png" WidthRequest="45" HeightRequest="35"/>
+                </Border>
+                <Label Text="99" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="End" Margin="0,20,7,0"/>
+            </Grid>
         </Grid>
 
         <CollectionView Grid.Row="1" Margin="20,0,20,20" ItemsSource="{Binding ThreatEvents}">
@@ -37,22 +60,53 @@
                             <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="90,*,150">
-                    
-                            <Image Source="cybercrime.png" HorizontalOptions="Start" Margin="15,0,0,0" HeightRequest="60" WidthRequest="60" Grid.Column="0"/>
 
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" Grid.Column="1" VerticalOptions="Center" RowSpacing="5">
+                            <Image HorizontalOptions="Start" Margin="15,0,0,0" HeightRequest="60" WidthRequest="60" Grid.Column="0">
+                                <Image.Triggers>
 
-                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                                    <!--Blocked-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding ActionTaken}"
+                                                 Value="Blocked"
+                                    >
+                                        <Setter Property="Source" Value="cybercrime.png"/>
+                                    </DataTrigger>
+
+                                    <!--Allowed-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding ActionTaken}"
+                                                 Value="Allowed"
+                                    >
+                                        <Setter Property="Source" Value="secure.png"/>
+                                    </DataTrigger>
+                                    
+                                    <!--Warning-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding ActionTaken}"
+                                                 Value="Warning"
+                                    >
+                                        <Setter Property="Source" Value="warning_threat.png"/>
+                                    </DataTrigger>
+                                    
+                                </Image.Triggers>
+                            </Image>
+
+                            <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*" Grid.Column="1" VerticalOptions="Center" RowSpacing="5">
+
+                                <Grid Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
                                     <Label Text="{Binding Protocol}" Grid.Column="0"/>
-                                    <Label Text="{Binding URL}" Grid.Column="1" HorizontalOptions="Fill" LineBreakMode="WordWrap"/>
                                 </Grid>
 
-                                <Grid ColumnDefinitions="*,*" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" ColumnSpacing="10">
+                                <Grid Grid.Row="1" Grid.Column="0" HorizontalOptions="Start">
+                                    <Label Text="{Binding URL}"/>
+                                </Grid>
+                                
+                                <Grid ColumnDefinitions="*,*" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" ColumnSpacing="10">
                                     <Label Text="{Binding Verdict}" Grid.Column="0"/>
-                                    <Label Text="{Binding Score}" Grid.Column="1"/>
+                                    <Label Text="{Binding Score, StringFormat='{0}%'}" Grid.Column="1"/>
                                 </Grid>
 
-                                <Grid Grid.Row="2" Grid.Column="0" HorizontalOptions="Start">
+                                <Grid Grid.Row="3" Grid.Column="0" HorizontalOptions="Start">
                                     <Label Text="{Binding Timestamp, StringFormat='{0:MM/dd/yyyy HH:mm}'}" />
                                 </Grid>
 
@@ -76,9 +130,52 @@
                                         HoveredScale="1.05"
                                     />
                                 </Border.Behaviors>
-                                <Grid ColumnDefinitions="*,*" VerticalOptions="Center" HorizontalOptions="Center" ColumnSpacing="6"> 
-                                    <Label Text="Unlock" Grid.Column="0" FontSize="15"/>
-                                    <Image Source="unlock.png" WidthRequest="20" HeightRequest="20" Grid.Column="1"/>
+                                <Grid ColumnDefinitions="*,*" VerticalOptions="Center" HorizontalOptions="Center" ColumnSpacing="6">
+                                    <Label Grid.Column="0" FontSize="15">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Blocked">
+                                                <Setter Property="Text" Value="Allow"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Allowed">
+                                                <Setter Property="Text" Value="Block"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Warning"
+                                            >
+                                                <Setter Property="Text" Value="Block"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Image WidthRequest="20" HeightRequest="20" Grid.Column="1">
+                                        <Image.Triggers>
+
+                                            <DataTrigger TargetType="Image"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Allowed">
+                                                <Setter Property="Source" Value="lock.png"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger TargetType="Image"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Warning"
+                                            >
+                                                <Setter Property="Source" Value="lock.png"/>             
+                                            </DataTrigger>
+
+                                            <DataTrigger TargetType="Image"
+                                                         Binding="{Binding ActionTaken}"
+                                                         Value="Blocked">
+                                                <Setter Property="Source" Value="unlock.png"/>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -86,5 +183,16 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <Border Grid.RowSpan="2" IsVisible="False" WidthRequest="300" HorizontalOptions="End" Margin="0,56,55,20">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,0,10,10"/>
+            </Border.StrokeShape>
+            <Grid BackgroundColor="{DynamicResource Accent}">
+
+            </Grid>
+        </Border>
+
     </Grid>
+       
 </ContentView>

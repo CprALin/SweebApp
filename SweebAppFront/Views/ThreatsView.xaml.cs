@@ -16,7 +16,7 @@ public partial class ThreatsView : ContentView
 
     public void OnSizeChanged(object? sender, EventArgs e)
     {
-        if(Width < 1000)
+        if(Width < 1500)
         {
             vm.Columns = 1;
         }else if(Width < 2500)
@@ -40,9 +40,9 @@ public partial class ThreatsView : ContentView
                 border.Shadow = new Shadow
                 {
                     Brush = Color.FromArgb("#3BC1A8"),
-                    Offset = new Point(5, 5),
-                    Radius = 5,
-                    Opacity = 0.5f
+                    Offset = new Point(3, 3),
+                    Radius = 2,
+                    Opacity = 0.2f
                 };
         }
     }
