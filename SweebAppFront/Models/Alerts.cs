@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SweebAppFront.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,11 +8,10 @@ namespace SweebAppFront.Models
     public class Alerts
     {
         public int IdAlert { get; set; }
-        public int UserId { get; set; }
-        public int DeviceId { get; set; }
-        public int ThreatEventId { get; set; }
-        public string Severity { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public AlertSeverity Severity { get; set; }
         public bool IsRead { get; set; }
-        public string CreatedAt { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+        public string TimeDisplay => CreatedAt.ToString("HH:mm");
     }
 }

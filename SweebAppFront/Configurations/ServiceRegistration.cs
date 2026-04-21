@@ -1,10 +1,5 @@
 ﻿using SweebAppFront.Services;
 using SweebAppFront.Services.Interfaces;
-using SweebAppFront.ViewModels;
-using SweebAppFront.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SweebAppFront.Configurations
 {

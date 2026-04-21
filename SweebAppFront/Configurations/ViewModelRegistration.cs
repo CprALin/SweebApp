@@ -12,6 +12,7 @@ namespace SweebAppFront.Configurations
             services.AddSingleton<MainPageViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<LiveRequestsViewModel>();
+            services.AddTransient<ThreatsViewModel>();
 
             return services;
         }

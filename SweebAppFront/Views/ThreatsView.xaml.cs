@@ -1,10 +1,14 @@
+using SweebAppFront.Enums;
+using SweebAppFront.Services;
 using SweebAppFront.ViewModels;
+using System.Windows.Input;
 
 namespace SweebAppFront.Views;
 
 public partial class ThreatsView : ContentView
 {
     private readonly ThreatsViewModel vm;
+        
 	public ThreatsView()
 	{
 		InitializeComponent();
@@ -13,6 +17,7 @@ public partial class ThreatsView : ContentView
 
         SizeChanged += OnSizeChanged;
 	}
+
 
     public void OnSizeChanged(object? sender, EventArgs e)
     {
@@ -31,6 +36,29 @@ public partial class ThreatsView : ContentView
         {
             vm.Columns = 4;
         }
+    }
+
+    private async void OnNotifPressed(object sender, TappedEventArgs e)
+    {
+        OverlayAlerts.IsVisible = true;
+
+        PopupAlerts.Opacity = 0;
+        PopupAlerts.TranslationY = -10;
+
+        await Task.WhenAll(
+            PopupAlerts.FadeToAsync(1, 120, Easing.CubicInOut),
+            PopupAlerts.TranslateToAsync(0, 0, 180, Easing.CubicInOut)
+        );
+    }
+
+    private async void OnCloseNotif(object sender, TappedEventArgs e)
+    {
+        await Task.WhenAll(
+            PopupAlerts.FadeToAsync(0, 100, Easing.CubicInOut),
+            PopupAlerts.TranslateToAsync(0, -8, 140, Easing.CubicInOut)
+        );
+
+        OverlayAlerts.IsVisible = false;
     }
 
     private async void OnPointerEntered(object sender, Microsoft.Maui.Controls.PointerEventArgs e)

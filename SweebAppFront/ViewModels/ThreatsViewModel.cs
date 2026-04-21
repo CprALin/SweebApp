@@ -1,10 +1,13 @@
-﻿using SweebAppFront.Models;
+﻿using SweebAppFront.Enums;
+using SweebAppFront.Models;
+using SweebAppFront.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 
 namespace SweebAppFront.ViewModels
 {
-    class ThreatsViewModel : BaseViewModel
+    public class ThreatsViewModel : BaseViewModel
     {
         public ObservableCollection<ThreatEvents> ThreatEvents { get; set; }
 
@@ -89,5 +92,6 @@ namespace SweebAppFront.ViewModels
                 }
             };
         }
+
     }
 }
