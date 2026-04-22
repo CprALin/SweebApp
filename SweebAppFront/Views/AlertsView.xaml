@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SweebAppFront.Views.AlertsView">
+  
+
+        <Grid BackgroundColor="{DynamicResource Accent}">
+
+            <Border x:Name="BorderAlert" BackgroundColor="{DynamicResource Highlight}" Margin="20" HeightRequest="100" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
+                <Border.GestureRecognizers>
+                    <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+                </Border.GestureRecognizers>
+
+                <Grid ColumnDefinitions="60,*,40">
+                    <Image Source="danger_notif.png" WidthRequest="40" HeightRequest="40" Grid.Column="0"/>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*,30" Grid.Column="1" HorizontalOptions="Start">
+
+                        <Grid RowDefinitions="*,*" Grid.ColumnSpan="2" Grid.Row="0" VerticalOptions="Start" Margin="10,10,0,0" RowSpacing="1">
+                            <Label Text="Phishing attempt blocked" Grid.Row="0"/>
+                            <Label Text="Severity : Critical" Grid.Row="1"/>
+                        </Grid>
+
+                        <Label Text="03/18/2026 09:45" Grid.Column="0" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
+                    </Grid>
+
+                    <Grid RowDefinitions="*,*" Grid.Column="2">
+
+                        <Border Grid.Row="0">
+                            <Border.Behaviors>
+                                <toolkit:TouchBehavior
+                             DefaultAnimationDuration="250"
+                             DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                             PressedOpacity="0.8"
+                             PressedScale="1"
+                             HoveredScale="1.05"
+                         />
+                            </Border.Behaviors>
+                            <Image Source="delete.png" WidthRequest="30" HeightRequest="30" />
+                        </Border>
+
+                        <Border Grid.Row="1">
+                            <Border.Behaviors>
+                                <toolkit:TouchBehavior
+                             DefaultAnimationDuration="250"
+                             DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                             PressedOpacity="0.8"
+                             PressedScale="1"
+                             HoveredScale="1.05"
+                         />
+                            </Border.Behaviors>
+                            <Image Source="seen.png" WidthRequest="30" HeightRequest="30" />
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+</ContentView>

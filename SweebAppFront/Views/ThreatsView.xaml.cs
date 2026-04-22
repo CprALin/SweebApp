@@ -65,13 +65,8 @@ public partial class ThreatsView : ContentView
     {
         if(sender is Border border)
         {
-                border.Shadow = new Shadow
-                {
-                    Brush = Color.FromArgb("#3BC1A8"),
-                    Offset = new Point(3, 3),
-                    Radius = 2,
-                    Opacity = 0.2f
-                };
+            border.Stroke = Color.FromArgb("#005461");
+            border.StrokeThickness = 1;
         }
     }
 
@@ -79,10 +74,8 @@ public partial class ThreatsView : ContentView
     {
         if (sender is Border border)
         {
-            border.Shadow = new Shadow
-            {
-                Opacity = 0
-            };
+            border.Stroke = null;
+            border.StrokeThickness = 0;
         }
     }
 }

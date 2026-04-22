@@ -7,9 +7,16 @@ using System.Text;
 
 namespace SweebAppFront.ViewModels
 {
-    public class AlertsViewModel
+    public class AlertsViewModel : BaseViewModel
     {
-        public ObservableCollection<Alerts> Alerts { get; set; } 
+        public ObservableCollection<Alerts> Alerts { get; set; }
+        private int _counterAlerts = 0;
+
+        public int CounterAlerts
+        {
+            get => _counterAlerts;
+            set => SetProperty(ref _counterAlerts, value);
+        }
 
         public AlertsViewModel()
         {
@@ -41,6 +48,9 @@ namespace SweebAppFront.ViewModels
                     CreatedAt = DateTime.Now.AddHours(-1)
                 }
             };
+
+            CounterAlerts = Alerts.Count();
+
         }
     }
 }
