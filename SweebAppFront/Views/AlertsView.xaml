@@ -2,59 +2,107 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:SweebAppFront.ViewModels"
              x:Class="SweebAppFront.Views.AlertsView">
-  
 
-        <Grid BackgroundColor="{DynamicResource Accent}">
 
-            <Border x:Name="BorderAlert" BackgroundColor="{DynamicResource Highlight}" Margin="20" HeightRequest="100" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
-                <Border.GestureRecognizers>
-                    <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
-                </Border.GestureRecognizers>
+    <Grid BackgroundColor="{DynamicResource Accent}" Padding="10,20,10,10">
 
-                <Grid ColumnDefinitions="60,*,40">
-                    <Image Source="danger_notif.png" WidthRequest="40" HeightRequest="40" Grid.Column="0"/>
+        <CollectionView ItemsSource="{Binding Alerts}">
 
-                    <Grid ColumnDefinitions="*,*" RowDefinitions="*,30" Grid.Column="1" HorizontalOptions="Start">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
 
-                        <Grid RowDefinitions="*,*" Grid.ColumnSpan="2" Grid.Row="0" VerticalOptions="Start" Margin="10,10,0,0" RowSpacing="1">
-                            <Label Text="Phishing attempt blocked" Grid.Row="0"/>
-                            <Label Text="Severity : Critical" Grid.Row="1"/>
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Border x:Name="BorderAlert" Opacity="{Binding Opacity}" BackgroundColor="{DynamicResource Highlight}" HeightRequest="100" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
+                        <Border.GestureRecognizers>
+                            <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="60,*,40">
+                            <Image WidthRequest="40" HeightRequest="40" Grid.Column="0">
+                                <Image.Triggers>
+
+                                    <!--Critical-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Severity}"
+                                                 Value="Critical"
+                                    >
+                                        <Setter Property="Source" Value="danger_notif.png"/>
+                                    </DataTrigger>
+
+                                    <!--Warning-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Severity}"
+                                                 Value="Warning"
+                                    >
+                                        <Setter Property="Source" Value="warning_notif.png" />
+                                    </DataTrigger>
+                                    
+                                    <!--Info-->
+                                    <DataTrigger TargetType="Image"
+                                                 Binding="{Binding Severity}"
+                                                 Value="Info"
+                                    >
+                                        <Setter Property="Source" Value="allowed_notif.png"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="*,30" Grid.Column="1" HorizontalOptions="Start">
+
+                                <Grid RowDefinitions="*,*" Grid.ColumnSpan="2" Grid.Row="0" VerticalOptions="Start" Margin="10,10,0,0" RowSpacing="1">
+                                    <Label Text="{Binding Message}" Grid.Row="0"/>
+                                    <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="5" HorizontalOptions="Start">
+                                        <Label Text="Severity :" Grid.Column="0"/>
+                                        <Label Text="{Binding Severity}" Grid.Column="1"/>
+                                    </Grid>
+                                </Grid>
+
+                                <Label Text="03/18/2026 09:45" Grid.Column="0" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
+                            </Grid>
+
+                            <Grid RowDefinitions="*,*" Grid.Column="2">
+
+                                <Border Grid.Row="0">
+                                   <Border.Behaviors>
+                                        <toolkit:TouchBehavior
+                                     DefaultAnimationDuration="250"
+                                     DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                     PressedOpacity="0.8"
+                                     PressedScale="1"
+                                     HoveredScale="1.05"
+                                   />
+                                   </Border.Behaviors>
+                                   <Image Source="delete.png" WidthRequest="30" HeightRequest="30" />
+                                </Border>
+
+                                <Border Grid.Row="1">
+                                   <Border.Behaviors>
+                                        <toolkit:TouchBehavior
+                                      DefaultAnimationDuration="250"
+                                      DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                      PressedOpacity="0.8"
+                                      PressedScale="1"
+                                      HoveredScale="1.05"
+                                   /> 
+                                   </Border.Behaviors>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ChangeAlertStatus}" CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
+                                   <Image Source="seen.png" WidthRequest="30" HeightRequest="30" />
+                                </Border>
+
+                            </Grid>
                         </Grid>
-
-                        <Label Text="03/18/2026 09:45" Grid.Column="0" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
-                    </Grid>
-
-                    <Grid RowDefinitions="*,*" Grid.Column="2">
-
-                        <Border Grid.Row="0">
-                            <Border.Behaviors>
-                                <toolkit:TouchBehavior
-                             DefaultAnimationDuration="250"
-                             DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
-                             PressedOpacity="0.8"
-                             PressedScale="1"
-                             HoveredScale="1.05"
-                         />
-                            </Border.Behaviors>
-                            <Image Source="delete.png" WidthRequest="30" HeightRequest="30" />
-                        </Border>
-
-                        <Border Grid.Row="1">
-                            <Border.Behaviors>
-                                <toolkit:TouchBehavior
-                             DefaultAnimationDuration="250"
-                             DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
-                             PressedOpacity="0.8"
-                             PressedScale="1"
-                             HoveredScale="1.05"
-                         />
-                            </Border.Behaviors>
-                            <Image Source="seen.png" WidthRequest="30" HeightRequest="30" />
-                        </Border>
-                    </Grid>
-                </Grid>
-            </Border>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         </Grid>
 
 </ContentView>

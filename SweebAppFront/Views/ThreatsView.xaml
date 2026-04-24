@@ -67,9 +67,12 @@
                         <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
                     </Border.GestureRecognizers>
 
-                    <Image Source="notification.png" WidthRequest="45" HeightRequest="35"/>
+                    <Grid>
+                        <Image Source="notification.png" WidthRequest="45" HeightRequest="35"/>
+                        <alerts:CounterView />
+                    </Grid>
                 </Border>
-                <Label Text="99" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="End" Margin="0,20,7,0"/>
+                
             </Grid>
         </Grid>
 

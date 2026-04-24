@@ -1,4 +1,6 @@
+using SweebAppFront.Models;
 using SweebAppFront.ViewModels;
+using System.Windows.Input;
 
 namespace SweebAppFront.Views;
 
@@ -11,11 +13,6 @@ public partial class AlertsView : ContentView
         vm = new AlertsViewModel();
         BindingContext = vm;
 	}
-
-    private void SetCounter(object? sender, EventArgs e)
-    {
-        vm.CounterAlerts = 0;
-    }
 
     private async void OnPointerEntered(object sender, Microsoft.Maui.Controls.PointerEventArgs e)
     {
@@ -34,4 +31,5 @@ public partial class AlertsView : ContentView
             border.StrokeThickness = 0;
         }
     }
+
 }

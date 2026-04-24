@@ -38,6 +38,11 @@ public partial class ThreatsView : ContentView
         }
     }
 
+    private void SetIsRead(object? sender, TappedEventArgs e)
+    {
+        
+    }
+
     private async void OnNotifPressed(object sender, TappedEventArgs e)
     {
         OverlayAlerts.IsVisible = true;

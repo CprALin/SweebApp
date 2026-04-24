@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace SweebAppFront.ViewModels
 {
@@ -52,5 +53,15 @@ namespace SweebAppFront.ViewModels
             CounterAlerts = Alerts.Count();
 
         }
-    }
+
+        public ICommand ChangeAlertStatus =>
+         new Command<Alerts>(alert =>
+         {
+             alert.IsRead = true;
+             CounterAlerts--;
+         }
+         );
+
+        }
+
 }
