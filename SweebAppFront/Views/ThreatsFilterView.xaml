@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:SweebAppFront.Components"
+             x:Class="SweebAppFront.Views.ThreatsFilterView">
+    
+    <Border BackgroundColor="{DynamicResource Highlight}" WidthRequest="350" StrokeShape="RoundRectangle 20">
+        <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
+            <components:LabelFilter LabelText="All" FilterKey="All" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="All"/>
+            <components:LabelFilter LabelText="Allowed" FilterKey="Allowed" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Allowed"/>
+            <components:LabelFilter LabelText="Warnings" FilterKey="Warnings" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Warnings"/>
+            <components:LabelFilter LabelText="Blocked" FilterKey="Blocked" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Blocked"/>
+        </HorizontalStackLayout>
+    </Border>
+
+</ContentView>

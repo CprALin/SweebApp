@@ -6,9 +6,22 @@
              x:Class="SweebAppFront.Views.AlertsView">
 
 
-    <Grid BackgroundColor="{DynamicResource Accent}" Padding="10,20,10,10">
+    <Grid RowDefinitions="30,*" BackgroundColor="{DynamicResource Accent}" Padding="10,20,10,10">
 
-        <CollectionView ItemsSource="{Binding Alerts}">
+        <Grid Grid.Row="0" HorizontalOptions="End" Margin="0,0,5,0">
+            <Border BackgroundColor="{DynamicResource Primary}" StrokeShape="RoundRectangle 15" VerticalOptions="Center" HorizontalOptions="Center" Padding="5,1,5,1">
+                <Border.Behaviors>
+                    <toolkit:TouchBehavior
+                                     DefaultAnimationDuration="150"
+                                     DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                     PressedOpacity="0.8"
+                                   />
+                </Border.Behaviors>  
+                <Label Text="Clear All" FontAttributes="Bold"/>
+            </Border>
+        </Grid>
+        
+        <CollectionView ItemsSource="{Binding Alerts}" Grid.Row="1">
 
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"/>
@@ -18,11 +31,10 @@
 
                 <DataTemplate>
 
-                    <Border x:Name="BorderAlert" Opacity="{Binding Opacity}" BackgroundColor="{DynamicResource Highlight}" HeightRequest="100" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
+                    <Border x:Name="BorderAlert" BackgroundColor="{DynamicResource Highlight}" HeightRequest="100" StrokeThickness="1" Stroke="{DynamicResource TextSecondary}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
                         <Border.GestureRecognizers>
                             <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
                         </Border.GestureRecognizers>
-
                         <Grid ColumnDefinitions="60,*,40">
                             <Image WidthRequest="40" HeightRequest="40" Grid.Column="0">
                                 <Image.Triggers>
@@ -42,7 +54,7 @@
                                     >
                                         <Setter Property="Source" Value="warning_notif.png" />
                                     </DataTrigger>
-                                    
+
                                     <!--Info-->
                                     <DataTrigger TargetType="Image"
                                                  Binding="{Binding Severity}"
@@ -66,10 +78,10 @@
                                 <Label Text="03/18/2026 09:45" Grid.Column="0" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
                             </Grid>
 
-                            <Grid RowDefinitions="*,*" Grid.Column="2">
+                            <Grid Grid.Column="2">
 
-                                <Border Grid.Row="0">
-                                   <Border.Behaviors>
+                                <Border VerticalOptions="Start" Margin="0,5,0,0">
+                                    <Border.Behaviors>
                                         <toolkit:TouchBehavior
                                      DefaultAnimationDuration="250"
                                      DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
@@ -77,24 +89,8 @@
                                      PressedScale="1"
                                      HoveredScale="1.05"
                                    />
-                                   </Border.Behaviors>
-                                   <Image Source="delete.png" WidthRequest="30" HeightRequest="30" />
-                                </Border>
-
-                                <Border Grid.Row="1">
-                                   <Border.Behaviors>
-                                        <toolkit:TouchBehavior
-                                      DefaultAnimationDuration="250"
-                                      DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
-                                      PressedOpacity="0.8"
-                                      PressedScale="1"
-                                      HoveredScale="1.05"
-                                   /> 
-                                   </Border.Behaviors>
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ChangeAlertStatus}" CommandParameter="{Binding .}"/>
-                                    </Border.GestureRecognizers>
-                                   <Image Source="seen.png" WidthRequest="30" HeightRequest="30" />
+                                    </Border.Behaviors>
+                                    <Image Source="close.png" WidthRequest="30" HeightRequest="30" />
                                 </Border>
 
                             </Grid>

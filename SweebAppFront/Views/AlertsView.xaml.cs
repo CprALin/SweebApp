@@ -6,30 +6,27 @@ namespace SweebAppFront.Views;
 
 public partial class AlertsView : ContentView
 {
-    private readonly AlertsViewModel vm;
 	public AlertsView()
 	{
 		InitializeComponent();
-        vm = new AlertsViewModel();
-        BindingContext = vm;
+        BindingContext = new AlertsViewModel();
 	}
 
-    private async void OnPointerEntered(object sender, Microsoft.Maui.Controls.PointerEventArgs e)
-    {
-        if (sender is Border border)
-        {
-            border.Stroke = Color.FromArgb("#005461");
+	private async void OnPointerEntered(object sender, PointerEventArgs e)
+	{
+		if(sender is Border border)
+		{
+            border.Stroke = Color.FromArgb("#F1EFEC");
+            border.StrokeThickness = 2;
+        }
+	}
+
+	private async void OnPointerExited(object sender, PointerEventArgs e)
+	{
+		if(sender is Border border)
+		{
+            border.Stroke = Colors.Transparent;
             border.StrokeThickness = 1;
         }
-    }
-
-    private async void OnPointerExited(object sender, Microsoft.Maui.Controls.PointerEventArgs e)
-    {
-        if (sender is Border border)
-        {
-            border.Stroke = null;
-            border.StrokeThickness = 0;
-        }
-    }
-
+	}
 }

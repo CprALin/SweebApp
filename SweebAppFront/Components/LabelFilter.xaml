@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SweebAppFront.Components.LabelFilter"
+             x:Name="self">
+
+    <Border x:Name="FilterBorder" StrokeShape="10" Padding="5">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnLabelTapped"/>
+        </Border.GestureRecognizers>
+        <Grid>
+            <Grid.Behaviors>
+                <toolkit:TouchBehavior
+                 DefaultAnimationDuration="250"
+                 DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                 PressedOpacity="0.8"
+                 PressedScale="1"
+                 HoveredScale="1.05"
+            />
+            </Grid.Behaviors>
+            <Label FontSize="16" FontAttributes="Bold" Text="{Binding Source={x:Reference self}, Path=LabelText}"/>
+        </Grid>
+    </Border>
+</ContentView>

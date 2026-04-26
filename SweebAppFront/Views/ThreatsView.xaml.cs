@@ -1,34 +1,33 @@
-using SweebAppFront.Enums;
-using SweebAppFront.Services;
 using SweebAppFront.ViewModels;
-using System.Windows.Input;
+
 
 namespace SweebAppFront.Views;
 
 public partial class ThreatsView : ContentView
 {
     private readonly ThreatsViewModel vm;
-        
-	public ThreatsView()
-	{
-		InitializeComponent();
+
+    public ThreatsView()
+    {
+        InitializeComponent();
         vm = new ThreatsViewModel();
         BindingContext = vm;
 
         SizeChanged += OnSizeChanged;
-	}
+    }
 
 
     public void OnSizeChanged(object? sender, EventArgs e)
     {
-        if(Width < 1500)
+        if (Width < 1500)
         {
             vm.Columns = 1;
-        }else if(Width < 2500)
+        }
+        else if (Width < 2500)
         {
             vm.Columns = 2;
         }
-        else if(Width < 3500)
+        else if (Width < 3500)
         {
             vm.Columns = 3;
         }
@@ -40,7 +39,7 @@ public partial class ThreatsView : ContentView
 
     private void SetIsRead(object? sender, TappedEventArgs e)
     {
-        
+
     }
 
     private async void OnNotifPressed(object sender, TappedEventArgs e)
@@ -66,21 +65,21 @@ public partial class ThreatsView : ContentView
         OverlayAlerts.IsVisible = false;
     }
 
-    private async void OnPointerEntered(object sender, Microsoft.Maui.Controls.PointerEventArgs e)
+    private async void OnPointerEntered(object sender, PointerEventArgs e)
     {
         if(sender is Border border)
         {
-            border.Stroke = Color.FromArgb("#005461");
-            border.StrokeThickness = 1;
+            border.Stroke = Color.FromArgb("#F1EFEC");
+            border.StrokeThickness = 2;
         }
     }
 
-    private async void OnPointerExited(object sender, Microsoft.Maui.Controls.PointerEventArgs e)
+    private async void OnPointerExited(object sender, PointerEventArgs e)
     {
-        if (sender is Border border)
+        if(sender is Border border)
         {
-            border.Stroke = null;
-            border.StrokeThickness = 0;
+            border.Stroke = Colors.Transparent;
+            border.StrokeThickness = 1;
         }
     }
 }

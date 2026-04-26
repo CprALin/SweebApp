@@ -28,7 +28,6 @@ namespace SweebAppFront.ViewModels
                     IdAlert = 1,
                     Message = "Phishing attempt blocked",
                     Severity = AlertSeverity.Critical,
-                    IsRead = false,
                     CreatedAt = DateTime.Now.AddMinutes(-2)
                 },
                 new Alerts
@@ -36,7 +35,6 @@ namespace SweebAppFront.ViewModels
                     IdAlert = 2,
                     Message = "Suspicious login detected",
                     Severity = AlertSeverity.Warning,
-                    IsRead = false,
                     CreatedAt = DateTime.Now.AddMinutes(-10)
                 },
                 new Alerts
@@ -45,7 +43,6 @@ namespace SweebAppFront.ViewModels
                     IdAlert = 3,
                     Message = "No threats detected",
                     Severity = AlertSeverity.Info,
-                    IsRead = true,
                     CreatedAt = DateTime.Now.AddHours(-1)
                 }
             };

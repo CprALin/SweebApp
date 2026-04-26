@@ -135,7 +135,8 @@ public partial class MenuButton : ContentView
 
     private static void OnStateChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        var view = (MenuButton)bindable;
+        if (bindable is not MenuButton view)
+            return;
 
         bool isActive = view.PageKey == view.CurrentPageKey;
 

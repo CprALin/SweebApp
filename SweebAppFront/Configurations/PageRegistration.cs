@@ -1,4 +1,5 @@
-﻿using SweebAppFront.Views;
+﻿using SweebAppFront.Components;
+using SweebAppFront.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,12 @@ namespace SweebAppFront.Configurations
             services.AddTransient<DashboardView>();
             services.AddTransient<LiveRequestsView>();
             services.AddTransient<ThreatsView>();
+            services.AddTransient<LabelFilter>();
+            services.AddTransient<MenuButton>();
+            services.AddTransient<SlidebarView>();
+            services.AddTransient<AlertsView>();
+            services.AddTransient<CounterView>();
+            services.AddTransient<ThreatsFilterView>();
 
             return services;
         }
