@@ -1,5 +1,6 @@
 ﻿
-using SweebAppAPIs.Services;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace SweebAppAPIs.Extensions
 {
@@ -13,13 +14,17 @@ namespace SweebAppAPIs.Extensions
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.MapControllers();
-            app.MapHub<SignalRHub>("/signalRHub"); 
+            using(var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<Data.AppDbContext>();
+                db.Database.Migrate();
+            }
 
+            app.UseHttpsRedirection();
             app.UseCors("DefaultCors");
+            app.MapControllers();
+           // app.MapHub<SignalRHub>("/signalRHub"); 
+
 
             return app;
         }

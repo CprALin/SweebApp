@@ -1,5 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SweebAppAPIs.Data.Repositories.Interfaces;
+using SweebAppAPIs.Enum;
+using SweebAppAPIs.Models;
 
 namespace SweebAppAPIs.Data.Repositories
 {
@@ -7,57 +9,33 @@ namespace SweebAppAPIs.Data.Repositories
     {
         private readonly AppDbContext _context = context;
 
-        public async Task AddThreatEvent(string url, string protocol, string host, string path, string status, string verdict, string actionTaken, int score, string category, int deviceId)
+        public async Task<ThreatEvent> CreateThreatAsync(ThreatEvent threatEvent)
         {
-            await _context.Database.ExecuteSqlRawAsync(
-               "EXEC addThreatEvent @URL , @Protocol , @Host , @Path , @Status , @Verdict , @ActionTaken , @Score , @Category , @DeviceId",
-               new SqlParameter("@URL" , url),
-               new SqlParameter("@Protocol" , protocol),
-               new SqlParameter("@Host" , host),
-               new SqlParameter("@Path" , path),
-               new SqlParameter("@Status" , status),
-               new SqlParameter("@Verdict" , verdict),
-               new SqlParameter("@ActionTaken" , actionTaken),
-               new SqlParameter("@Score" , score),
-               new SqlParameter("@Category" , category),
-               new SqlParameter("@DeviceId" , deviceId)
-            );
+            _context.ThreatEvents.Add(threatEvent);
+
+            await _context.SaveChangesAsync();
+
+            return threatEvent;
+        }
+        
+        public async Task<List<ThreatEvent>> GetAllThreatsAsync()
+        {
+           return await _context.ThreatEvents.ToListAsync();
+        }
+        
+        public async Task<List<ThreatEvent>> GetThreatsByStatusAsync(ThreatStatus status)
+        {
+           return await _context.ThreatEvents.Where(t => t.ActionTaken == status).ToListAsync();
         }
 
-        public async Task<List<Models.ThreatEvents>> GetThreatEventsForDevice(int deviceId)
+        public async Task UpdateThreatAsync(int threatId, ThreatStatus newStatus)
         {
-            return await _context.ThreatEvents.FromSqlInterpolated($"EXEC getThreatEventsForDevice {deviceId}").ToListAsync();
-        }
-
-        public async Task AddDetectionReason(string reasonCode, int weight, string details, int threatEventId)
-        {
-            await _context.Database.ExecuteSqlRawAsync(
-                "EXEC addDetectionReason @ReasonCode , @Weight , @Details , @ThreatEventId",
-                new SqlParameter("@ReasonCode", reasonCode),
-                new SqlParameter("@Weight", weight),
-                new SqlParameter("@Details", details),
-                new SqlParameter("@ThreatEventId", threatEventId)
-            );
-        }
-
-        public async Task<Models.DetectionReasons?> GetDetectionReason(int threatEventId)
-        {
-            return await _context.DetectionReasons.FromSqlInterpolated($"EXEC getDetectionReason {threatEventId}").AsNoTracking().FirstOrDefaultAsync();
-        }
-
-        public async Task<List<Models.ThreatEventsWithDevice>> GetThreatEventsByUser(int userId)
-        {
-            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getThreatEventsByUser {userId}").ToListAsync();
-        }
-
-        public async Task<List<Models.ThreatEventsWithDevice>> GetThreatEventsByDevice(int userId, int deviceId)
-        {
-            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getThreatEventsByDevice {userId} , {deviceId}").ToListAsync();
-        }
-
-        public async Task<List<Models.ThreatEventsWithDevice>> GetRecentThreatEvents(int userId)
-        {
-            return await _context.ThreatEventsWithDevice.FromSqlInterpolated($"EXEC getRecentThreatEvents {userId}").ToListAsync();
+            var threat = await _context.ThreatEvents.FindAsync(threatId);
+            if (threat != null)
+            {
+                threat.ActionTaken = newStatus;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

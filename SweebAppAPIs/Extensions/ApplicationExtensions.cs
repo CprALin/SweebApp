@@ -1,4 +1,9 @@
-﻿using SweebAppAPIs.Services;
+﻿
+
+using SweebAppAPIs.Data;
+using SweebAppAPIs.Data.Repositories;
+using SweebAppAPIs.Data.Repositories.Interfaces;
+using SweebAppAPIs.Services;
 using SweebAppAPIs.Services.Interfaces;
 
 namespace SweebAppAPIs.Extensions
@@ -7,11 +12,17 @@ namespace SweebAppAPIs.Extensions
 	{
 		public static IServiceCollection AddApplication(this IServiceCollection services)
 		{
-			services.AddScoped<IAuthService , AuthService>();
-			services.AddScoped<IJwtService , JwtService>();
-			services.AddScoped<IUserService , UserService>();
-			services.AddScoped<IPasswordHashService , PasswordHashService>();
-			return services;
+            //Repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IDeviceRepository, DeviceRepository>();
+			services.AddScoped<IThreatRepository, ThreatRepository>();
+
+            //Services
+            services.AddScoped<IUserServices, UserServices>();
+			services.AddScoped<IDeviceServices, DeviceServices>();
+			services.AddScoped<IThreatServices, ThreatServices>();
+
+            return services;
 		}
 	}
 }
