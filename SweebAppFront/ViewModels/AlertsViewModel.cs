@@ -51,14 +51,6 @@ namespace SweebAppFront.ViewModels
 
         }
 
-        public ICommand ChangeAlertStatus =>
-         new Command<Alerts>(alert =>
-         {
-             alert.IsRead = true;
-             CounterAlerts--;
-         }
-         );
-
         }
 
 }

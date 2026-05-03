@@ -10,7 +10,6 @@ namespace SweebAppFront.Models
         public string Name { get; set; } = string.Empty;
         public string OS { get; set; } = string.Empty;
         public string CreatedAt { get; set; } = string.Empty;
-        public bool IsActive { get; set; }
         public int UserId { get; set; }
     }
 }
