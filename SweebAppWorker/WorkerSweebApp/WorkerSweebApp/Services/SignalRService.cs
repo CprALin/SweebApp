@@ -11,7 +11,7 @@ namespace WorkerSweebApp.Services
         public SignalRService()
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:4238/signalRHub")
+                .WithUrl("https://localhost:7832/signalRHub")
                 .WithAutomaticReconnect()
                 .Build();
         }
@@ -29,8 +29,7 @@ namespace WorkerSweebApp.Services
 
         public async Task SendProxyTrafficAsync(ResponseProxy response)
         {
-            var userId = "testUserId";
-            await _connection.InvokeAsync("SendProxyTrafficAsync", response, userId); 
+            await _connection.InvokeAsync("SendProxyTrafficAsync", response); 
         }
     }
 }

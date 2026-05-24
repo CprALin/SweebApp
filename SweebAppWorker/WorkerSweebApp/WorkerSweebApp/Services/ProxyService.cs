@@ -15,6 +15,7 @@ namespace WorkerSweebApp.Services
     {
         private readonly ProxyServer _proxyServer;
         private readonly ISignalRService _signalRService;
+        private static DateTime _lastSent = DateTime.MinValue;
 
         public ProxyService(ISignalRService signalRService)
         {
@@ -60,8 +61,16 @@ namespace WorkerSweebApp.Services
             var method = e.HttpClient.Request.Method.ToUpper();
             var port = uri.Port;
 
-            if (path.Contains("/static") || path.Contains("/assets"))
+
+            if (path.EndsWith(".js") ||
+                path.EndsWith(".css") ||
+                path.EndsWith(".png") ||
+                path.EndsWith(".jpg") ||
+                path.EndsWith(".svg") ||
+                path.Contains("/static") ||
+                path.Contains("/assets"))
                 return;
+
 
             var response = new ResponseProxy
             {
@@ -73,7 +82,13 @@ namespace WorkerSweebApp.Services
                 IsThreat = false
             };
 
+            if ((DateTime.Now - _lastSent).TotalSeconds< 3)
+                return;
+
+
+
             await _signalRService.SendProxyTrafficAsync(response);
+            _lastSent = DateTime.Now;
             Console.WriteLine($"[Request] {response.Method} | {response.Protocol} | {response.Url} | {response.Host} | {response.Port} | {response.IsThreat}");
         }
 
