@@ -4,9 +4,9 @@ namespace SweebAppFront.Views;
 
 public partial class LiveRequestsView : ContentView
 {
-	public LiveRequestsView()
+	public LiveRequestsView(LiveRequestsViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = new LiveRequestsViewModel();
+		BindingContext = vm;
     }
 }

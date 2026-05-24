@@ -12,8 +12,9 @@ namespace SweebAppFront
         private readonly MainPage _mainPage;
         private readonly IAuthStateService _authStateService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly SignalRConnectionService _signalRConnectionService;
 
-        public App(MainWindow mainWindow, LoginPage loginPage, MainPage mainPage, IAuthStateService authStateService, IServiceProvider serviceProvider)
+        public App(MainWindow mainWindow, LoginPage loginPage, MainPage mainPage, IAuthStateService authStateService, IServiceProvider serviceProvider,SignalRConnectionService signalRConnectionService)
         {
             InitializeComponent();
 
@@ -22,6 +23,7 @@ namespace SweebAppFront
             _mainPage = mainPage;
             _authStateService = authStateService;
             _serviceProvider = serviceProvider;
+            _signalRConnectionService = signalRConnectionService;
 
             if(_authStateService is INotifyPropertyChanged notify)
             {
@@ -63,6 +65,24 @@ namespace SweebAppFront
             else
             {
                 _mainWindow.Page = _serviceProvider.GetRequiredService<LoginPage>();
+            }
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            _ = StartSignalR();
+        }
+
+        private async Task StartSignalR()
+        {
+            try
+            {
+                await _signalRConnectionService.StratAsync();
+            }catch (Exception ex)
+            {
+                Console.WriteLine($"SignalR error: {ex.Message}");
             }
         }
     }

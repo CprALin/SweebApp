@@ -10,6 +10,7 @@ namespace SweebAppFront.Configurations
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<IAuthStateService, AuthStateService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<SignalRConnectionService>();
 
             return services;
         }

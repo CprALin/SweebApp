@@ -11,7 +11,7 @@ namespace SweebAppFront.Configurations
         {
             services.AddSingleton<MainPageViewModel>();
             services.AddTransient<LoginViewModel>();
-            services.AddTransient<LiveRequestsViewModel>();
+            services.AddSingleton<LiveRequestsViewModel>();
             services.AddTransient<ThreatsViewModel>();
             services.AddTransient<ThreatsFilterViewModel>();
 

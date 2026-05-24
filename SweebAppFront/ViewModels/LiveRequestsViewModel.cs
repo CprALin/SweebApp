@@ -1,4 +1,6 @@
 ﻿using SweebAppAPIs.Models;
+using SweebAppFront.Models;
+using SweebAppFront.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +10,22 @@ namespace SweebAppFront.ViewModels
 {
     public class LiveRequestsViewModel
     {
-        public ObservableCollection<LiveTrafficResponse> LiveTraffic { get; set; }
+        private readonly SignalRConnectionService _signalR;
+        public ObservableCollection<ResponseProxy> LiveTraffic { get; set; } = new();
 
+        public LiveRequestsViewModel(SignalRConnectionService signalR)
+        {
+            _signalR = signalR;
+            _signalR.OnDataReceived += AddItem;
+        }
+        public void AddItem(ResponseProxy data)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                LiveTraffic.Add(data);
+            });
+        }
+/*
         public LiveRequestsViewModel()
         {
             LiveTraffic = new ObservableCollection<LiveTrafficResponse>
@@ -52,5 +68,6 @@ namespace SweebAppFront.ViewModels
                 }
             };
         }
+*/
     }
 }
