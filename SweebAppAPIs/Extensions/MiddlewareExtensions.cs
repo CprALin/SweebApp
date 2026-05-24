@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using SweebAppAPIs.Services;
 
 namespace SweebAppAPIs.Extensions
 {
@@ -23,7 +24,7 @@ namespace SweebAppAPIs.Extensions
             app.UseHttpsRedirection();
             app.UseCors("DefaultCors");
             app.MapControllers();
-           // app.MapHub<SignalRHub>("/signalRHub"); 
+            app.MapHub<SignalRHub>("/signalRHub"); 
 
 
             return app;
