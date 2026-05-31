@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:alerts="clr-namespace:SweebAppFront.Views"
+             xmlns:behaviors="clr-namespace:SweebAppFront.Behaviors"
              x:Class="SweebAppFront.Views.ThreatsView">
 
     <ContentView.Resources>
@@ -42,6 +43,7 @@
                                         PressedScale="1"
                                         HoveredScale="1.05"
                                     />
+                        <behaviors:CursorBehavior Cursor="Hand" />
                     </Border.Behaviors>
 
                     <Grid>
@@ -136,6 +138,7 @@
                                         HoveredScale="1.05"
                                         PressedScale="1"
                                     />
+                                    <behaviors:CursorBehavior Cursor="Hand" />
                                 </Border.Behaviors>
                                 <Grid ColumnDefinitions="*,*" VerticalOptions="Center" HorizontalOptions="Center" ColumnSpacing="6">
                                     <Label Grid.Column="0" FontSize="15">

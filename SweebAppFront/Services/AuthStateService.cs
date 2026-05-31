@@ -1,8 +1,10 @@
-﻿using SweebAppFront.Services.Interfaces;
+﻿using SweebAppFront.Models;
+using SweebAppFront.Services.Interfaces;
 using SweebAppFront.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace SweebAppFront.Services
 {
@@ -10,6 +12,50 @@ namespace SweebAppFront.Services
     {
         private bool _isLoggedIn = false;
         private string _username = string.Empty;
+
+        HttpClient _client = new HttpClient();
+        JsonSerializerOptions _options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
+        Uri uri = new Uri("https://localhost:7832/api/v1/User/get");
+
+        public AuthStateService()
+        {
+            CheckLoginStatus();
+        }
+
+        public async void CheckLoginStatus()
+        {
+            try
+            {
+                var response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var userInfo = JsonSerializer.Deserialize<ApiResponse<User>>(content, _options);
+
+                    if (userInfo?.Data?.Id != 0)
+                    {
+                        IsLoggedIn = true;
+                        Username = userInfo.Data.UserName;
+                    }
+                    else
+                    {
+                        IsLoggedIn = false;
+                        Username = string.Empty;
+                    }
+                }
+                else
+                {
+                    IsLoggedIn = false;
+                    Username = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking login status: {ex.Message}");
+                IsLoggedIn = false;
+                Username = string.Empty;
+            }
+        }
 
         public bool IsLoggedIn
         {

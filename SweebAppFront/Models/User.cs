@@ -6,6 +6,7 @@ namespace SweebAppFront.Models
 {
     public class User
     {
-        public string Username { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string UserName { get; set; } = string.Empty;
     }
 }

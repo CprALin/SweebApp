@@ -41,8 +41,8 @@ namespace SweebAppFront.ViewModels
                 {
 
                     IdAlert = 3,
-                    Message = "No threats detected",
-                    Severity = AlertSeverity.Info,
+                    Message = "Be careful with this link",
+                    Severity = AlertSeverity.Warning,
                     CreatedAt = DateTime.Now.AddHours(-1)
                 }
             };

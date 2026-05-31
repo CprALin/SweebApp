@@ -6,7 +6,6 @@ namespace SweebAppFront.Enums
 {
     public enum AlertSeverity
     {
-        Info,
         Warning,
         Critical
     }

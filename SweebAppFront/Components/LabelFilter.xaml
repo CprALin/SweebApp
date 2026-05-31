@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:behaviors="clr-namespace:SweebAppFront.Behaviors"
              x:Class="SweebAppFront.Components.LabelFilter"
              x:Name="self">
 
@@ -18,6 +19,7 @@
                  PressedScale="1"
                  HoveredScale="1.05"
             />
+                <behaviors:CursorBehavior Cursor="Hand" />
             </Grid.Behaviors>
             <Label FontSize="16" FontAttributes="Bold" Text="{Binding Source={x:Reference self}, Path=LabelText}"/>
         </Grid>

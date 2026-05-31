@@ -31,25 +31,22 @@ namespace SweebAppFront.ViewModels
                 new Devices
                 {
                     IdDevice = 1,
-                    Name = "Laptop Dell XPS 13",
+                    DeviceName = "Laptop Dell XPS 13",
                     OS = "Windows 11",
-                    CreatedAt = "2024-01-12 10:24",
                     UserId = 101
                 },
                 new Devices
                 {
                     IdDevice = 2,
-                    Name = "MacBook Pro 14",
+                    DeviceName = "MacBook Pro 14",
                     OS = "macOS Sonoma",
-                    CreatedAt = "2024-02-03 14:10",
                     UserId = 101
                 },
                 new Devices
                 {
                     IdDevice = 3,
-                    Name = "iPhone 15",
+                    DeviceName = "iPhone 15",
                     OS = "iOS 17",
-                    CreatedAt = "2024-02-20 09:48",
                     UserId = 101
                 }
 
