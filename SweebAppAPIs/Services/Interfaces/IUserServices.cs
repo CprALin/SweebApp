@@ -7,5 +7,7 @@ namespace SweebAppAPIs.Services.Interfaces
     {
         Task<Response> CreateUserAsync(string username);
         Task<Response> UpdateUserAsync(int userId, string newName);
+        Task<Response> DeleteUser(int userId);
+        Task<Response> GetUserAsync();
     }
 }

@@ -6,7 +6,7 @@ using SweebAppAPIs.Services.Interfaces;
 
 namespace SweebAppAPIs.Controllers
 {
-    [Route("api/v1/threats/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ThreatsController(IThreatServices services) : ControllerBase
     {

@@ -45,5 +45,42 @@ namespace SweebAppAPIs.Services
           };
        }
 
+       public async Task<Response> GetDeviceAsync()
+       {
+            var response = await _repo.GetDevicesAsync();
+            if (response == null)
+            {
+                return new Response
+                {
+                    Status = "Error",
+                    Message = "Failed to retrieve device."
+                };
+            }
+            return new Response
+            {
+                Status = "Success",
+                Message = "Devices retrieved successfully.",
+                Data = response
+            };
+       }
+
+       public async Task<Response> DeleteDeviceAsync(int id)
+       {
+            if (id == 0)
+            {
+                return new Response
+                {
+                    Status = "Error",
+                    Message = "Device ID is required."
+                };
+            }
+            await _repo.DeleteDeviceAsync(id);
+            return new Response
+            {
+                Status = "Success",
+                Message = "Device deleted successfully."
+            };
+       }
+
     }
 }

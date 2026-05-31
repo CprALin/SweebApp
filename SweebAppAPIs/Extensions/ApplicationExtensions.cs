@@ -16,11 +16,13 @@ namespace SweebAppAPIs.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IDeviceRepository, DeviceRepository>();
 			services.AddScoped<IThreatRepository, ThreatRepository>();
+			services.AddScoped<IAlertRepository, AlertRepository>();
 
             //Services
             services.AddScoped<IUserServices, UserServices>();
 			services.AddScoped<IDeviceServices, DeviceServices>();
 			services.AddScoped<IThreatServices, ThreatServices>();
+			services.AddScoped<IAlertsServices, AlertsServices>();
 
             return services;
 		}

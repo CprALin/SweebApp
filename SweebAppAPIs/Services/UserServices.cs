@@ -90,5 +90,45 @@ namespace SweebAppAPIs.Services
                 Message = "User updated successfully."
             };
         }
+
+        public async Task<Response> DeleteUser(int userId)
+        {
+            if (userId == 0)
+            {
+                return new Response
+                {
+                    Status = "error",
+                    Message = "User ID can't be empty."
+                };
+            }
+
+            await _repo.DeleteUserAsync(userId);
+            return new Response
+            {
+                Status = "info",
+                Message = "User deleted successfully."
+            };
+        }
+
+        public async Task<Response> GetUserAsync()
+        {
+            var user = await _repo.GetUserAsync();
+
+            if(user == null)
+            {
+                return new Response
+                {
+                    Status = "Info",
+                    Message = "No user found."
+                };
+            }
+
+            return new Response
+            {
+                Status = "success",
+                Message = "User retrieved successfully.",
+                Data = user
+            };
+        }
     }
 }

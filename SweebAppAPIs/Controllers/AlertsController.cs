@@ -5,7 +5,7 @@ using SweebAppAPIs.Services.Interfaces;
 
 namespace SweebAppAPIs.Controllers
 {
-    [Route("api/v1/alerts/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AlertsController(IAlertsServices services) : ControllerBase
     {
