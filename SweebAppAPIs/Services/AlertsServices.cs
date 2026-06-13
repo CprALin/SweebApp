@@ -3,12 +3,14 @@ using SweebAppAPIs.Services.Interfaces;
 using SweebAppAPIs.Models.Responses;
 using SweebAppAPIs.Enum;
 using SweebAppAPIs.Models;
+using Microsoft.AspNetCore.SignalR;
 
 namespace SweebAppAPIs.Services
 {
-    public class AlertsServices(IAlertRepository repo) : IAlertsServices
+    public class AlertsServices(IAlertRepository repo, IHubContext<SignalRHub> hubContext) : IAlertsServices
     {
         private readonly IAlertRepository _repo = repo;
+        private readonly IHubContext<SignalRHub> _hubContext = hubContext;
 
         public async Task<Response> CreateAlertAsync(int threatId, string message, AlertSeverity severity)
         {
@@ -47,7 +49,7 @@ namespace SweebAppAPIs.Services
                     Message = "Failed to create alert.",
                 };
             }
-
+            await _hubContext.Clients.All.SendAsync("ReceiveAlert", alert);
             return new Response
             {
                 Status = "Success",
@@ -80,7 +82,7 @@ namespace SweebAppAPIs.Services
             }
 
             await _repo.DeleteAlertAsync(alertId);
-
+            await _hubContext.Clients.All.SendAsync("AlertDeleted", alertId);
             return new Response
             {
                 Status = "Success",
@@ -91,6 +93,7 @@ namespace SweebAppAPIs.Services
         public async Task<Response> DeleteAllAlertAsync()
         {
             await _repo.DeleteAllAlertsAsync();
+            await _hubContext.Clients.All.SendAsync("ClearAllAlerts");
             return new Response
             {
                 Status = "Success",

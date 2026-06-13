@@ -9,7 +9,7 @@ namespace SweebAppAPIs.Models.Requests
         public string Protocol { get; set; } = string.Empty;
         public string Verdict { get; set; } = string.Empty;
         public ThreatStatus Status { get; set; }
-        public int Score { get; set; }
+        public double Score { get; set; }
         public string Category { get; set; } = string.Empty;
     }
 }

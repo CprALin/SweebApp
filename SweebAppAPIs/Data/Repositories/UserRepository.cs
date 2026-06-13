@@ -8,14 +8,12 @@ namespace SweebAppAPIs.Data.Repositories
     {
         private readonly AppDbContext _context = context;
 
-        public async Task<User> GetUserAsync()
+        public async Task<User?> GetUserAsync()
         {
-            var user = await _context.User.FirstOrDefaultAsync();
-            if(user == null)
-            {
-                return new User();
-            }
-            return user;
+            return await _context.User
+                .Where(user => !string.IsNullOrWhiteSpace(user.UserName))
+                .OrderByDescending(user => user.Id)
+                .FirstOrDefaultAsync();
         }
         public async Task<User> CreateUserAsync(User user)
         {

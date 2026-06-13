@@ -11,14 +11,14 @@ using SweebAppAPIs.Data;
 namespace SweebAppAPIs.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260503173233_InitialCreate")]
+    [Migration("20260607162811_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
 
             modelBuilder.Entity("SweebAppAPIs.Models.Alert", b =>
                 {
@@ -89,8 +89,8 @@ namespace SweebAppAPIs.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Score")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");

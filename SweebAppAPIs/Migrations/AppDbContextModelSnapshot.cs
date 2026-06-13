@@ -15,7 +15,7 @@ namespace SweebAppAPIs.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
 
             modelBuilder.Entity("SweebAppAPIs.Models.Alert", b =>
                 {
@@ -86,8 +86,8 @@ namespace SweebAppAPIs.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("Score")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");

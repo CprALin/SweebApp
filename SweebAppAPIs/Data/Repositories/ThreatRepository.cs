@@ -22,6 +22,19 @@ namespace SweebAppAPIs.Data.Repositories
         {
            return await _context.ThreatEvents.ToListAsync();
         }
+
+        public async Task<ThreatEvent?> GetThreatByIdAsync(int threatId)
+        {
+            return await _context.ThreatEvents.FindAsync(threatId);
+        }
+
+        public async Task<ThreatEvent?> GetLatestThreatByUrlAsync(string url)
+        {
+            return await _context.ThreatEvents
+                .Where(t => t.URL == url)
+                .OrderByDescending(t => t.Id)
+                .FirstOrDefaultAsync();
+        }
         
         public async Task<List<ThreatEvent>> GetThreatsByStatusAsync(ThreatStatus status)
         {

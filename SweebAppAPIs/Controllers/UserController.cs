@@ -15,7 +15,7 @@ namespace SweebAppAPIs.Controllers
         {
             var result = await _services.CreateUserAsync(username);
 
-            if (result.Status == "Error" || result.Status == "Info")
+            if (result.Status.Equals("Error", StringComparison.OrdinalIgnoreCase) || result.Status.Equals("Info", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(result);
             }
@@ -28,7 +28,7 @@ namespace SweebAppAPIs.Controllers
         {
             var result = await _services.UpdateUserAsync(id, newName);
 
-            if (result.Status == "Info")
+            if (result.Status.Equals("Info", StringComparison.OrdinalIgnoreCase) || result.Status.Equals("Error", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(result);
             }
@@ -41,7 +41,7 @@ namespace SweebAppAPIs.Controllers
         public async Task<IActionResult> DeleteUserAsync([FromRoute] int id)
         {
             var result = await _services.DeleteUser(id);
-            if (result.Status == "error")
+            if (result.Status.Equals("Error", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(result);
             }
@@ -52,11 +52,6 @@ namespace SweebAppAPIs.Controllers
         public async Task<IActionResult> GetUserAsync()
         {
             var result = await _services.GetUserAsync();
-            if (result.Status == "Info")
-            {
-                return BadRequest(result);
-            }
-
             return Ok(result);
         }
     }

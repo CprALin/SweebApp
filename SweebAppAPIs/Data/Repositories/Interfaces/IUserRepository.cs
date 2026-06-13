@@ -7,6 +7,6 @@ namespace SweebAppAPIs.Data.Repositories.Interfaces
         Task<User> CreateUserAsync(User user);
         Task UpdateUserAsync(int userId,string newName);
         Task DeleteUserAsync(int userId);
-        Task<User> GetUserAsync();
+        Task<User?> GetUserAsync();
     }
 }

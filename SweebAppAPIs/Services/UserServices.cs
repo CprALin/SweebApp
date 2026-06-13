@@ -16,7 +16,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "info",
+                    Status = "Info",
                     Message = "Username can't be empty or contain white spaces."
                 };
             }
@@ -25,7 +25,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "info",
+                    Status = "Info",
                     Message = "Username must be at least 4 characters long."
                 };
             }
@@ -40,14 +40,14 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "error",
+                    Status = "Error",
                     Message = "Failed to create user."
                 };
             }
 
             return new Response
             {
-                Status = "success",
+                Status = "Success",
                 Message = "User created successfully.",
                 Data = result
             };
@@ -59,7 +59,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "info",
+                    Status = "Info",
                     Message = "Fields can't be empty."
                 };
             }
@@ -68,7 +68,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "info",
+                    Status = "Info",
                     Message = "Username can't be empty or contain white spaces."
                 };
             }
@@ -77,7 +77,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "info",
+                    Status = "Info",
                     Message = "Username must be at least 4 characters long."
                 };
             }
@@ -86,7 +86,7 @@ namespace SweebAppAPIs.Services
 
             return new Response
             {
-                Status = "success",
+                Status = "Success",
                 Message = "User updated successfully."
             };
         }
@@ -97,7 +97,7 @@ namespace SweebAppAPIs.Services
             {
                 return new Response
                 {
-                    Status = "error",
+                    Status = "Error",
                     Message = "User ID can't be empty."
                 };
             }
@@ -105,7 +105,7 @@ namespace SweebAppAPIs.Services
             await _repo.DeleteUserAsync(userId);
             return new Response
             {
-                Status = "info",
+                Status = "Info",
                 Message = "User deleted successfully."
             };
         }
@@ -125,7 +125,7 @@ namespace SweebAppAPIs.Services
 
             return new Response
             {
-                Status = "success",
+                Status = "Success",
                 Message = "User retrieved successfully.",
                 Data = user
             };

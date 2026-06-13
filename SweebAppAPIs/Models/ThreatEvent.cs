@@ -10,7 +10,7 @@ namespace SweebAppAPIs.Models
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
         public string Verdict { get; set; } = string.Empty;
         public ThreatStatus ActionTaken { get; set; }
-        public int Score { get; set; } = 0;
+        public double Score { get; set; }
         public string Category { get; set; } = string.Empty;
         public int DeviceId { get; set; }
     }

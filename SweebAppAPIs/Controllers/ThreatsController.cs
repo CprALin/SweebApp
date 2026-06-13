@@ -29,10 +29,36 @@ namespace SweebAppAPIs.Controllers
         public async Task<IActionResult> UpdateThreatStatus([FromRoute] int threatId, [FromBody] ThreatStatus newStatus)
         {
             var result = await _services.UpdateThreatStatus(threatId, newStatus);
-            if (result == null)
+            if (result == null || result.Status == "Error")
             {
                 return BadRequest(result);
             }
+            return Ok(result);
+        }
+
+        [HttpPatch("{threatId}/allow")]
+        public async Task<IActionResult> AllowThreat([FromRoute] int threatId)
+        {
+            var result = await _services.UpdateThreatStatus(threatId, ThreatStatus.Allowed);
+
+            if (result == null || result.Status == "Error")
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPatch("{threatId}/block")]
+        public async Task<IActionResult> BlockThreat([FromRoute] int threatId)
+        {
+            var result = await _services.UpdateThreatStatus(threatId, ThreatStatus.Blocked);
+
+            if (result == null || result.Status == "Error")
+            {
+                return BadRequest(result);
+            }
+
             return Ok(result);
         }
 
@@ -44,8 +70,21 @@ namespace SweebAppAPIs.Controllers
             return Ok(result);
         }
 
+        [HttpGet("by-url")]
+        public async Task<IActionResult> GetLatestThreatByUrl([FromQuery] string url)
+        {
+            var result = await _services.GetLatestThreatByUrl(url);
+
+            if (result.Status == "Error")
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet("status/{status}")]
-        public async Task<IActionResult> GetThreatByStatus([FromBody] ThreatStatus status)
+        public async Task<IActionResult> GetThreatByStatus([FromRoute] ThreatStatus status)
         {
             var result = await _services.GetThreatByStatus(status);
 
