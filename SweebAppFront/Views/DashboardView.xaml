@@ -4,36 +4,167 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="SweebAppFront.Views.DashboardView"
              Background="{DynamicResource Primary}">
-    
-    <Grid RowDefinitions="80,*" ColumnDefinitions="*">
-        <Grid ColumnDefinitions="*,*" Grid.Row="0">
-            <Label 
-                Text="Dashboard"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"
-                Margin="20"
-                FontSize="30"
-                FontAttributes="Bold"
-                Grid.Row="0"
-            />
+
+    <ContentView.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextPrimary}" />
+        </Style>
+
+        <Style x:Key="HeaderLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextPrimary}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="MutedLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextSecondary}" />
+            <Setter Property="Opacity" Value="0.82" />
+        </Style>
+
+        <Style x:Key="TableHeader" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextPrimary}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="TableCell" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextSecondary}" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </ContentView.Resources>
+
+    <Grid RowDefinitions="76,*">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="20,0,24,0">
+            <Label Text="Dashboard"
+                   Style="{StaticResource HeaderLabel}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="28" />
+
+            <Border Grid.Column="1"
+                    BackgroundColor="{DynamicResource Variant}"
+                    Stroke="{DynamicResource Highlight}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="14,7"
+                    MaximumWidthRequest="320"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End">
+                <Grid ColumnDefinitions="44,Auto" ColumnSpacing="12">
+                    <Border WidthRequest="38"
+                            HeightRequest="38"
+                            BackgroundColor="{DynamicResource Accent}"
+                            StrokeShape="RoundRectangle 19"
+                            VerticalOptions="Center">
+                        <Label Text="PC"
+                               TextColor="{DynamicResource TextPrimary}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                        <Label Text="{Binding CurrentDeviceName}"
+                               Style="{StaticResource HeaderLabel}"
+                               FontSize="14"
+                               LineBreakMode="TailTruncation"
+                               MaxLines="1" />
+                        <Label Text="{Binding CurrentDeviceOS}"
+                               Style="{StaticResource MutedLabel}"
+                               FontSize="12"
+                               LineBreakMode="TailTruncation"
+                               MaxLines="1" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
         </Grid>
 
-        <Border Grid.Row="1" Margin="20,0,20,20" StrokeThickness="0" Shadow="{DynamicResource CardShadowAccent}">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20"/>
-            </Border.StrokeShape>
+        <Grid Grid.Row="1" RowDefinitions="86,*,236" RowSpacing="12" Padding="20,0,20,18">
+                <Grid Grid.Row="0" ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                    <Border BackgroundColor="{DynamicResource Variant}" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 12" Padding="16,10">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Total Threats" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            <Label Text="{Binding TotalThreats}" Style="{StaticResource HeaderLabel}" FontSize="30" />
+                        </VerticalStackLayout>
+                    </Border>
 
-            <lvc:CartesianChart
-                LegendPosition="Right"
-                BackgroundColor="{DynamicResource Highlight}"
-                
-            >
-                <lvc:CartesianChart.Series>
-                    <lvc:SeriesCollection>
-                        <lvc:XamlLineSeries SeriesName="Threats" Values="5, 10, 12, 8, 4"/>
-                    </lvc:SeriesCollection>
-                </lvc:CartesianChart.Series>
-            </lvc:CartesianChart>
-        </Border>
+                    <Border Grid.Column="1" BackgroundColor="{DynamicResource Variant}" Stroke="{DynamicResource Accent}" StrokeShape="RoundRectangle 12" Padding="16,10">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Blocked" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            <Label Text="{Binding BlockedThreats}" Style="{StaticResource HeaderLabel}" FontSize="30" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Column="2" BackgroundColor="{DynamicResource Variant}" Stroke="{DynamicResource Highlight}" StrokeShape="RoundRectangle 12" Padding="16,10">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Allowed" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            <Label Text="{Binding AllowedThreats}" Style="{StaticResource HeaderLabel}" FontSize="30" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="1"
+                        BackgroundColor="{DynamicResource Variant}"
+                        Stroke="{DynamicResource Accent}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="14"
+                        Shadow="{DynamicResource CardShadowAccent}">
+                    <Grid RowDefinitions="42,*" RowSpacing="6">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="0">
+                                <Label Text="Threats By Month" Style="{StaticResource HeaderLabel}" FontSize="18" />
+                                <Label Text="Current year, grouped across all 12 months" Style="{StaticResource MutedLabel}" FontSize="12" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1"
+                                   Text="12 months"
+                                   TextColor="{DynamicResource TextPrimary}"
+                                   BackgroundColor="{DynamicResource Accent}"
+                                   Padding="9,3"
+                                   FontSize="12"
+                                   VerticalOptions="Center" />
+                        </Grid>
+
+                        <lvc:CartesianChart Grid.Row="1"
+                                            Series="{Binding ThreatSeries}"
+                                            XAxes="{Binding XAxes}"
+                                            YAxes="{Binding YAxes}"
+                                            LegendPosition="Hidden"
+                                            BackgroundColor="{DynamicResource Variant}"
+                                            TooltipPosition="Top" />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2"
+                        BackgroundColor="{DynamicResource Variant}"
+                        Stroke="{DynamicResource Accent}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="0">
+                    <Grid RowDefinitions="38,*">
+                        <Grid Grid.Row="0" ColumnDefinitions="*,*,*,*" BackgroundColor="{DynamicResource Accent}" Padding="12,0">
+                            <Label Text="Month" Style="{StaticResource TableHeader}" Grid.Column="0" HorizontalOptions="Start" />
+                            <Label Text="Threats" Style="{StaticResource TableHeader}" Grid.Column="1" />
+                            <Label Text="Blocked" Style="{StaticResource TableHeader}" Grid.Column="2" />
+                            <Label Text="Allowed" Style="{StaticResource TableHeader}" Grid.Column="3" />
+                        </Grid>
+
+                        <CollectionView Grid.Row="1" ItemsSource="{Binding MonthlyThreats}" SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,*,*,*" Padding="12,6" BackgroundColor="{DynamicResource Variant}">
+                                        <Label Text="{Binding Month}" Style="{StaticResource TableCell}" Grid.Column="0" HorizontalOptions="Start" FontAttributes="Bold" FontSize="13" />
+                                        <Label Text="{Binding Total}" Style="{StaticResource TableCell}" Grid.Column="1" />
+                                        <Label Text="{Binding Blocked}" Style="{StaticResource TableCell}" Grid.Column="2" />
+                                        <Label Text="{Binding Allowed}" Style="{StaticResource TableCell}" Grid.Column="3" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </Border>
+            </Grid>
     </Grid>
 </ContentView>

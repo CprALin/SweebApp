@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SweebAppFront.Views.MainPage"
     xmlns:components="clr-namespace:SweebAppFront.Components"
+    x:Name="MainRoot"
     Padding="0">
 
     <Grid ColumnDefinitions="*,240" RowDefinitions="*" Background="{DynamicResource Primary}">

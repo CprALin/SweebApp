@@ -14,12 +14,19 @@ namespace SweebAppFront.Services
         private string _username = string.Empty;
 
         HttpClient _client = new HttpClient();
-        JsonSerializerOptions _options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
+        JsonSerializerOptions _options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
+        };
         Uri uri = new Uri("https://localhost:7832/api/v1/User/get");
 
         public AuthStateService()
         {
+
             CheckLoginStatus();
+
         }
 
         public async void CheckLoginStatus()
@@ -32,29 +39,38 @@ namespace SweebAppFront.Services
                     var content = await response.Content.ReadAsStringAsync();
                     var userInfo = JsonSerializer.Deserialize<ApiResponse<User>>(content, _options);
 
-                    if (userInfo?.Data?.Id != 0)
+                    var user = userInfo?.Data;
+                    var username = user?.UserName?.Trim() ?? string.Empty;
+
+                    if (user != null && user.Id != 0 && !string.IsNullOrWhiteSpace(username))
                     {
+                        Username = username;
                         IsLoggedIn = true;
-                        Username = userInfo.Data.UserName;
                     }
                     else
                     {
-                        IsLoggedIn = false;
-                        Username = string.Empty;
+                        ClearLoginStateIfNeeded();
                     }
                 }
                 else
                 {
-                    IsLoggedIn = false;
-                    Username = string.Empty;
+                    ClearLoginStateIfNeeded();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error checking login status: {ex.Message}");
-                IsLoggedIn = false;
-                Username = string.Empty;
+                ClearLoginStateIfNeeded();
             }
+        }
+
+        private void ClearLoginStateIfNeeded()
+        {
+            if (IsLoggedIn)
+                return;
+
+            IsLoggedIn = false;
+            Username = string.Empty;
         }
 
         public bool IsLoggedIn
@@ -78,5 +94,6 @@ namespace SweebAppFront.Services
                 OnPropertyChanged();
             }
         }
+
     }
 }

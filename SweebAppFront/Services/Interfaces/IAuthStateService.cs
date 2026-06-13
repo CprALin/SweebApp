@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 
 namespace SweebAppFront.Services.Interfaces
 {
-    public interface IAuthStateService
+    public interface IAuthStateService : INotifyPropertyChanged
     {
         bool IsLoggedIn { get; set; }
         string Username { get; set; }

@@ -4,11 +4,10 @@
              xmlns:components="clr-namespace:SweebAppFront.Components"
              x:Class="SweebAppFront.Views.ThreatsFilterView">
     
-    <Border BackgroundColor="{DynamicResource Highlight}" WidthRequest="350" StrokeShape="RoundRectangle 20">
+    <Border BackgroundColor="{DynamicResource Highlight}" StrokeShape="RoundRectangle 20" Padding="10,0,10,0">
         <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
-            <components:LabelFilter LabelText="All" FilterKey="All" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="All"/>
             <components:LabelFilter LabelText="Allowed" FilterKey="Allowed" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Allowed"/>
-            <components:LabelFilter LabelText="Warnings" FilterKey="Warnings" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Warnings"/>
+            <components:LabelFilter LabelText="All" FilterKey="All" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="All"/>
             <components:LabelFilter LabelText="Blocked" FilterKey="Blocked" CurrentFilterKey="{Binding CurrentFilterKey}" Command="{Binding FilterCommand}" CommandParameter="Blocked"/>
         </HorizontalStackLayout>
     </Border>

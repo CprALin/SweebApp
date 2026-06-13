@@ -4,22 +4,26 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:SweebAppFront.ViewModels"
              xmlns:behaviors="clr-namespace:SweebAppFront.Behaviors"
-             x:Class="SweebAppFront.Views.AlertsView">
+             x:Class="SweebAppFront.Views.AlertsView"
+             x:Name="AlertsRoot">
 
 
     <Grid RowDefinitions="30,*" BackgroundColor="{DynamicResource Accent}" Padding="10,20,10,10">
 
         <Grid Grid.Row="0" HorizontalOptions="End" Margin="0,0,5,0">
             <Border BackgroundColor="{DynamicResource Primary}" StrokeShape="RoundRectangle 15" VerticalOptions="Center" HorizontalOptions="Center" Padding="5,1,5,1">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BindingContext.ClearAll, Source={x:Reference AlertsRoot}}"/>
+                </Border.GestureRecognizers>
                 <Border.Behaviors>
-                    <toolkit:TouchBehavior
+                   <toolkit:TouchBehavior
                                      DefaultAnimationDuration="150"
                                      DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
                                      PressedOpacity="0.8"
                                    />
                     <behaviors:CursorBehavior Cursor="Hand"/>
                 </Border.Behaviors>  
-                <Label Text="Clear All" FontAttributes="Bold"/>
+                <Label Text="Clear All" TextColor="{DynamicResource TextPrimary}" FontAttributes="Bold"/>
             </Border>
         </Grid>
         
@@ -33,7 +37,7 @@
 
                 <DataTemplate>
 
-                    <Border x:Name="BorderAlert" BackgroundColor="{DynamicResource Highlight}" HeightRequest="100" StrokeThickness="1" Stroke="{DynamicResource TextSecondary}" StrokeShape="RoundRectangle 15" VerticalOptions="Start">
+                    <Border x:Name="BorderAlert" BackgroundColor="{DynamicResource Highlight}" MinimumHeightRequest="128" StrokeThickness="1" Stroke="{DynamicResource TextSecondary}" StrokeShape="RoundRectangle 15" VerticalOptions="Start" Padding="0,8">
                         <Border.GestureRecognizers>
                             <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
                         </Border.GestureRecognizers>
@@ -44,7 +48,7 @@
                                     <!--Critical-->
                                     <DataTrigger TargetType="Image"
                                                  Binding="{Binding Severity}"
-                                                 Value="Critical"
+                                                 Value="1"
                                     >
                                         <Setter Property="Source" Value="danger_notif.png"/>
                                     </DataTrigger>
@@ -52,7 +56,7 @@
                                     <!--Warning-->
                                     <DataTrigger TargetType="Image"
                                                  Binding="{Binding Severity}"
-                                                 Value="Warning"
+                                                 Value="0"
                                     >
                                         <Setter Property="Source" Value="warning_notif.png" />
                                     </DataTrigger>
@@ -60,30 +64,35 @@
                                 </Image.Triggers>
                             </Image>
 
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="*,30" Grid.Column="1" HorizontalOptions="Start">
+                            <Grid RowDefinitions="*,Auto" Grid.Column="1" HorizontalOptions="Fill">
 
-                                <Grid RowDefinitions="*,*" Grid.ColumnSpan="2" Grid.Row="0" VerticalOptions="Start" Margin="10,10,0,0" RowSpacing="1">
-                                    <Label Text="{Binding Message}" Grid.Row="0"/>
-                                    <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="5" HorizontalOptions="Start">
-                                        <Label Text="Severity :" Grid.Column="0"/>
-                                        <Label Text="{Binding Severity}" Grid.Column="1"/>
+                                <Grid RowDefinitions="Auto,Auto" Grid.Row="0" VerticalOptions="Start" Margin="10,0,4,0" RowSpacing="4">
+                                    <Label Text="{Binding Message}" TextColor="{DynamicResource Primary}" Grid.Row="0" LineBreakMode="WordWrap" MaxLines="4"/>
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto,Auto" ColumnSpacing="5" HorizontalOptions="Start">
+                                        <Label Text="Severity :" TextColor="{DynamicResource Primary}" Grid.Column="0"/>
+                                        <Label Text="{Binding Severity}" TextColor="{DynamicResource Primary}" Grid.Column="1"/>
                                     </Grid>
                                 </Grid>
 
-                                <Label Text="03/18/2026 09:45" Grid.Column="0" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:MM/dd/yyyy HH:mm}'}" TextColor="{DynamicResource Primary}" Grid.Row="1" VerticalOptions="End" Margin="10,6,0,0"/>
                             </Grid>
 
                             <Grid Grid.Column="2">
 
                                 <Border VerticalOptions="Start" Margin="0,5,0,0">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.ClearById, Source={x:Reference AlertsRoot}}"
+                                            CommandParameter="{Binding Id}"/>
+                                    </Border.GestureRecognizers>
                                     <Border.Behaviors>
                                         <toolkit:TouchBehavior
-                                     DefaultAnimationDuration="250"
-                                     DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
-                                     PressedOpacity="0.8"
-                                     PressedScale="1"
-                                     HoveredScale="1.05"
-                                   />
+                                             DefaultAnimationDuration="250"
+                                             DefaultAnimationEasing="{x:Static Easing.CubicInOut}"
+                                             PressedOpacity="0.8"
+                                             PressedScale="1"
+                                             HoveredScale="1.05"
+                                        />
                                         <behaviors:CursorBehavior Cursor="Hand"/>
                                     </Border.Behaviors>
                                     <Image Source="close.png" WidthRequest="30" HeightRequest="30" />

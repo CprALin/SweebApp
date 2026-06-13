@@ -9,10 +9,10 @@ public partial class AlertsView : ContentView
 	public AlertsView()
 	{
 		InitializeComponent();
-        BindingContext = new AlertsViewModel();
-	}
+    }
 
-	private async void OnPointerEntered(object sender, PointerEventArgs e)
+
+    private async void OnPointerEntered(object sender, PointerEventArgs e)
 	{
 		if(sender is Border border)
 		{

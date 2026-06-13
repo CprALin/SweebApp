@@ -5,14 +5,15 @@ namespace SweebAppFront.Views;
 
 public partial class ThreatsView : ContentView
 {
-    private readonly ThreatsViewModel vm;
+    private readonly ThreatsViewModel _vm;
 
-    public ThreatsView()
+    public ThreatsView(ThreatsViewModel vm)
     {
         InitializeComponent();
-        vm = new ThreatsViewModel();
-        BindingContext = vm;
+        _vm = vm;
+        BindingContext = _vm;
 
+        //_ = _vm.LoadThreats();
         SizeChanged += OnSizeChanged;
     }
 
@@ -21,25 +22,20 @@ public partial class ThreatsView : ContentView
     {
         if (Width < 1500)
         {
-            vm.Columns = 1;
+            _vm.Columns = 1;
         }
         else if (Width < 2500)
         {
-            vm.Columns = 2;
+            _vm.Columns = 2;
         }
         else if (Width < 3500)
         {
-            vm.Columns = 3;
+            _vm.Columns = 3;
         }
         else
         {
-            vm.Columns = 4;
+            _vm.Columns = 4;
         }
-    }
-
-    private void SetIsRead(object? sender, TappedEventArgs e)
-    {
-
     }
 
     private async void OnNotifPressed(object sender, TappedEventArgs e)

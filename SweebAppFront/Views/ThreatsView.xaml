@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:alerts="clr-namespace:SweebAppFront.Views"
              xmlns:behaviors="clr-namespace:SweebAppFront.Behaviors"
-             x:Class="SweebAppFront.Views.ThreatsView">
+             x:Class="SweebAppFront.Views.ThreatsView"
+             x:Name="ThreatsRoot">
 
     <ContentView.Resources>
         <Style x:Key="ContentLabel" TargetType="Label">
@@ -12,7 +12,7 @@
             <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
     </ContentView.Resources>
-    
+
     <Grid RowDefinitions="80,*">
         <Grid ColumnDefinitions="200,*,200" Grid.Row="0">
             <Label 
@@ -33,7 +33,7 @@
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnNotifPressed"/>
                 </Grid.GestureRecognizers>
-                
+
                 <Border Grid.Column="0">
                     <Border.Behaviors>
                         <toolkit:TouchBehavior
@@ -48,12 +48,28 @@
 
                     <Grid>
                         <Image Source="notification.png" WidthRequest="45" HeightRequest="35"/>
-                        <alerts:CounterView />
+                        <alerts:CounterView BindingContext="{Binding AlertsViewModel}"/>
                     </Grid>
                 </Border>
-                
+
             </Grid>
         </Grid>
+
+        <VerticalStackLayout 
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Grid.Row="1"
+            IsVisible="{Binding IsEmpty}">
+
+                <Label
+                Text="List is empty — no threats found"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HorizontalTextAlignment="Center"
+                FontSize="18"
+                Opacity="0.8" />    
+
+        </VerticalStackLayout>
 
         <CollectionView Grid.Row="1" Margin="20,0,20,20" ItemsSource="{Binding ThreatEvents}">
 
@@ -67,7 +83,7 @@
                         <Border.GestureRecognizers>
                             <PointerGestureRecognizer PointerEntered="OnPointerEntered" PointerExited="OnPointerExited"/>
                         </Border.GestureRecognizers>
-                        
+
                         <Grid ColumnDefinitions="90,*,150">
 
                             <Image HorizontalOptions="Start" Margin="15,0,0,0" HeightRequest="60" WidthRequest="60" Grid.Column="0">
@@ -76,7 +92,7 @@
                                     <!--Blocked-->
                                     <DataTrigger TargetType="Image"
                                                  Binding="{Binding ActionTaken}"
-                                                 Value="Blocked"
+                                                 Value="1"
                                     >
                                         <Setter Property="Source" Value="cybercrime.png"/>
                                     </DataTrigger>
@@ -84,17 +100,9 @@
                                     <!--Allowed-->
                                     <DataTrigger TargetType="Image"
                                                  Binding="{Binding ActionTaken}"
-                                                 Value="Allowed"
+                                                 Value="0"
                                     >
                                         <Setter Property="Source" Value="secure.png"/>
-                                    </DataTrigger>
-
-                                    <!--Warning-->
-                                    <DataTrigger TargetType="Image"
-                                                 Binding="{Binding ActionTaken}"
-                                                 Value="Warning"
-                                    >
-                                        <Setter Property="Source" Value="warning_threat.png"/>
                                     </DataTrigger>
 
                                 </Image.Triggers>
@@ -112,7 +120,7 @@
 
                                 <Grid ColumnDefinitions="*,*" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" ColumnSpacing="10">
                                     <Label Style="{StaticResource ContentLabel}" Text="{Binding Verdict}" Grid.Column="0"/>
-                                    <Label Style="{StaticResource ContentLabel}" Text="{Binding Score, StringFormat='{0}%'}" Grid.Column="1"/>
+                                    <Label Style="{StaticResource ContentLabel}" Text="{Binding Score, StringFormat='{0:P1}'}" Grid.Column="1"/>
                                 </Grid>
 
                                 <Grid Grid.Row="3" Grid.Column="0" HorizontalOptions="Start">
@@ -130,6 +138,11 @@
                             </Grid>
 
                             <Border HorizontalOptions="End" Margin="0,0,10,0" Grid.Column="2" WidthRequest="100" HeightRequest="40" BackgroundColor="{DynamicResource Primary}" StrokeShape="RoundRectangle 10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding BindingContext.ToggleThreatActionCommand, Source={x:Reference ThreatsRoot}}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
                                 <Border.Behaviors>
                                     <toolkit:TouchBehavior
                                         DefaultAnimationDuration="250"
@@ -145,20 +158,13 @@
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
                                                          Binding="{Binding ActionTaken}"
-                                                         Value="Blocked">
+                                                         Value="1">
                                                 <Setter Property="Text" Value="Allow"/>
                                             </DataTrigger>
 
                                             <DataTrigger TargetType="Label"
                                                          Binding="{Binding ActionTaken}"
-                                                         Value="Allowed">
-                                                <Setter Property="Text" Value="Block"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger TargetType="Label"
-                                                         Binding="{Binding ActionTaken}"
-                                                         Value="Warning"
-                                            >
+                                                         Value="0">
                                                 <Setter Property="Text" Value="Block"/>
                                             </DataTrigger>
                                         </Label.Triggers>
@@ -168,20 +174,13 @@
 
                                             <DataTrigger TargetType="Image"
                                                          Binding="{Binding ActionTaken}"
-                                                         Value="Allowed">
+                                                         Value="0">
                                                 <Setter Property="Source" Value="lock.png"/>
                                             </DataTrigger>
 
                                             <DataTrigger TargetType="Image"
                                                          Binding="{Binding ActionTaken}"
-                                                         Value="Warning"
-                                            >
-                                                <Setter Property="Source" Value="lock.png"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger TargetType="Image"
-                                                         Binding="{Binding ActionTaken}"
-                                                         Value="Blocked">
+                                                         Value="1">
                                                 <Setter Property="Source" Value="unlock.png"/>
                                             </DataTrigger>
                                         </Image.Triggers>
@@ -210,10 +209,10 @@
                     <TapGestureRecognizer />
                 </Border.GestureRecognizers>
 
-                <alerts:AlertsView x:Name="AlertsView" />
+                <alerts:AlertsView x:Name="AlertsView" BindingContext="{Binding AlertsViewModel}"/>
             </Border>
         </Grid>
 
     </Grid>
-       
+
 </ContentView>

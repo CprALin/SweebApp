@@ -8,9 +8,10 @@ namespace SweebAppFront.Models
 {
     public class Alerts : BaseViewModel
     {
-        public int IdAlert { get; set; }
+        public int Id { get; set; }
         public string Message { get; set; } = string.Empty;
         public AlertSeverity Severity { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int ThreatEventId { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

@@ -79,17 +79,18 @@ namespace SweebAppFront.ViewModels
                 IsLoading = true;
                 ErrorMessage = string.Empty;
 
+                var username = _username.Trim();
                 var request = new LoginRequest
                 {
-                    Username = _username
+                    Username = username
                 };
 
                 var response = await _authService.LoginAsync(request);
 
                 if (response.Success)
                 {
+                    _authStateService.Username = username;
                     _authStateService.IsLoggedIn = true;
-                    _authStateService.Username = request.Username;
 
                     ErrorMessage = string.Empty;
                 }
